@@ -1,0 +1,304 @@
+@charset "UTF-8";
+
+	body, html {
+	margin: 0px;
+	padding: 0px;
+	
+}
+em{
+	font-style:normal !important;
+}
+
+.reserve_header {
+	margin-top: 40px;
+	text-align: left;
+}
+
+.reserve_container {
+	width: 1050px;
+	height: 680px;
+	background-color:#e6e6e6;
+	margin-bottom: 50px;
+	text-align: center;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.reserve_moviemenu {
+	width: 39%;
+	height: 46px;
+	display: inline-block;
+	text-align: center;
+	font-size: 14pt;
+	line-height: 5px;
+	background-color: #3a3d3d;
+	color: #d7d8db;;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.reserve_timemenu {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	width: 60%;
+	height: 46px;
+	display: inline-block;
+	text-align: center;
+	font-size: 14pt;
+	line-height: 5px;
+	background-color: #3a3d3d;
+	color: #d7d8db;;
+}
+
+.test_form {
+	width: 1050px;
+	text-align: left;
+}
+
+.reserve_movieform {
+	width: 412px;
+	height: 580px;
+	display: inline-block;
+	background-color:#e6e6e6;
+}
+
+.reserve_timeform {
+	background-color:#e6e6e6 !important;
+	width: 600px;
+	height: 580px;
+	position: absolute;
+	display: inline-block;
+	border-left: 2px solid #3a3d3d;
+	font-family: 'GoyangDeogyang' !important;
+}
+
+.reserve_movieListform {
+	width: 85%;
+	height: 520px;
+	margin: 29px;
+	background-color: white;
+}
+
+.reserve_timetable {
+	width: 580px;
+	height: 520px;
+	margin: 29px;
+	background-color: white;
+	overflow:auto;
+}
+
+.reserve_moviekind {
+	height: 50px;
+	padding-right: 10px;
+	text-align: right;
+	background-color: white;
+	border-bottom: 1px solid rgb(222, 222, 222);
+}
+
+.reserve_moviebtn {
+	padding: 15px;
+	color: black !important;
+	font-family: 'GoyangDeogyang';
+}
+
+.reserve_moviescrollList1, .reserve_moviescrollList2,
+	.reserve_moviescrollList3 {
+	overflow: auto;
+	height: 470px !important;
+	position: absolute;
+}
+
+.tbtn {
+	margin-left: 20px !important;
+	box-sizing: border-box;
+	padding: 0px;
+	margin: 0px;
+	list-style: none;
+	float: left;
+	box-sizing: border-box;
+	background-position: initial;
+	color: rgb(51, 51, 51);
+	width: 44px;
+	height: 23px;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 23px;
+	border-radius: 2px;
+}
+
+
+.timetable_list {
+	width: 580px;
+	height: 70px;
+	background-color: white;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.viewtime {
+	margin-top: 5px;
+	width: 150px;
+	height: 40px;
+	padding: 10px 0px 0px 20px;
+	font-size: 14pt;
+	display: inline-block;
+	vertical-align: baseline;
+	background-color: white;
+	border-right: 1px solid #e0e0e0;
+}
+
+.reserve_movietheater {
+	width: 430px;
+	height: 59px;
+	display: inline-block;
+	padding: 10px 0px 0px 0px;
+	background-color: white;
+	font-size: 14pt;
+	border-right: 1px solid #e0e0e0;
+	postion: reactive;
+	margin-top: 5px;
+}
+
+.reserve_selectform {
+	width: 1050px;
+	height: 55px;
+	background-color: #3a3d3d;
+	font-family: 'GoyangDeogyang' !important; 
+}
+
+.movieage {
+	display: inline-block;
+}
+
+.moviename {
+	display: inline-block;
+	margin: 0px;
+}
+
+.reserve_movie {
+	line-height: 20px;
+	padding: 5px;
+	padding-left: 20px;
+	padding-bottom: 10px;
+	color: black !important;
+}
+
+#select_movie {
+	padding: 15px;
+	font-size: 14pt;
+	color: #d7d8db;;
+	display: inline-block;
+}
+
+#select_day {
+	padding: 15px 0px 15px 15px;
+	font-size: 12pt;
+	color: #d7d8db;;
+	display: inline-block;
+}
+
+#select_time {
+	font-size: 11pt;
+	color: #d7d8db;;
+	display: inline-block;
+}
+
+#select_screen {
+	height: 50px;
+	padding: 15px;
+	font-size: 12pt;
+	color: #d7d8db;;
+	display: inline-block;
+}
+
+em {
+	font-size: 14pt;
+	font-family: 'BMJUA' !important;
+}
+
+a {
+	color: black !important;
+	text-decoration: none !important;
+}
+
+.btn {
+	margin-top: 1px;
+	height: 30px;
+}
+
+.starttime {
+	font-weight: bold;
+	display: inline-block;
+}
+
+.nomovie {
+	text-align: center;
+	font-size: 16pt;
+	line-height: 400px;
+}
+
+.small_menu {
+	display: inline-block;
+	font-size: x-small;
+	color: #e0e0e0;
+	font-family: 'BMJUA' !important;
+}
+
+.seatGo {
+	float: right;
+	background-color: #9b3341;
+	display: inline-block;
+	margin: 5px;
+	border-radius: 5px;
+	font-size: 14pt;
+	font-weight: bold;
+	color: #d7d8db !important;
+	line-height: 20px;
+	margin-top: 7px;
+	font-family: 'GoyangDeogyang';
+}
+
+.seatGO:hover {
+	background-color: #af4251;
+}
+
+.ptags {
+	display: inline-block;
+	margin: 0px;
+	border-radius: 50%;
+	color: white;
+	margin-left: 3px;
+	font-family: 'GoyangDeogyang' !important;
+}
+.timeLine{
+            width:100%;
+            height: 60px;
+            display: flex;
+            border-bottom: 1px solid #d8d8d8;
+        }
+        .f17{
+            display: inline-block;
+            width:23%;
+        }
+        .f17L{
+
+            padding:15px 0px 0px 15px;
+        }
+        .f17R{
+            text-align: right;
+            padding:10px 20px 0px 00px;
+        }
+        .f66{
+            display: inline-block;
+            padding:15px 0px 0px 15px;
+            width:54%;
+            border-left: 1px solid #d8d8d8;
+            border-right: 1px solid #d8d8d8;
+            font-size: 18px;
+        }
+        .rowH3{
+            display: inline;
+        }
+        #dateContainer{
+        	font-family: 'BMJUA' !important;
+        }

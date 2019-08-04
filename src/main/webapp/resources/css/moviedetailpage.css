@@ -1,0 +1,301 @@
+@charset "UTF-8";
+.swiper-container {
+   width: 980px;
+   height: 800px;
+   margin-left: auto;
+   margin-right: auto;
+}
+
+.swiper-slide {
+   background-size: cover;
+   background-position: center;
+   width: 100%;
+   height: 100%;
+}
+.starChoiceBox{
+      unicode-bidi: bidi-override;
+       direction: rtl;
+       font-size: 18pt;
+       text-align: center;
+       color: #cdcdcd;
+       padding-top: 5px;
+   }
+   .starChoiceBox > span {
+    display: inline-block;
+    position: relative;
+    width: 1.1em;
+   }
+   .starChoiceBox > span:hover:before,
+   .starChoiceBox > span:hover ~ span:before {
+    content: "\2605";
+    position: absolute;
+    color: #993240;
+   }
+   .starComment{
+      color: black !important;
+      font-size: 14px !important;
+      font-family: GoyangDeogyang !important;
+   }
+
+.gallery-top {
+   height: 500px;
+   width: 980px;
+}
+
+b {
+   font-size: 17px;
+   font-family: 'BMJUA' !important;
+   font-weight: normal !important;
+}
+
+.gallery-thumbs {
+   height: 120px;
+   width: 800px;
+   box-sizing: border-box;
+   margin-left: auto;
+   margin-right: auto;
+   margin-bottom: 30px;
+}
+
+.swiper-slide-thumb-active {
+   border: 5px solid #9d3341;
+}
+
+.gallery-thumbs .swiper-slide {
+   height: 100%;
+   opacity: 0.7;
+}
+
+.gallery-thumbs .swiper-slide-thumb-active {
+   opacity: 1;
+}
+
+.swiper-button-next, .swiper-button-prev {
+   width: 45px;
+   height: 75px;
+}
+
+.movieDetailContainer {
+   margin-left: auto;
+   margin-right: auto;
+   margin-top: 50px;
+   width: 1000px;
+   padding: 10px;
+}
+
+.w3-container, .w3-modal-content {
+   width: 1200px !important;
+}
+
+.movieDetailh1 {
+   border-bottom: 3px solid #241d1e;
+   font-size: 30pt;
+   font-family: 'GoyangDeogyang' !important;
+}
+
+.movieDetailInfoBox {
+   display: flex;
+   margin-top: 40px;
+}
+
+.movieDetailImgBox {
+   width: 220px;
+   height: 325px;
+   display: inline-block;
+}
+
+#movieDetailImg {
+   width: 100%;
+   height: 100%;
+}
+
+.movieDetailContentsBox {
+   width: 800px;
+   padding-left: 40px;
+   display: inline-block;
+}
+
+.movieDetailTitle {
+   font-family: 'GoyangDeogyang' !important;
+   font-weight: normal !important;
+   font-size: 25px;
+}
+
+h2 {
+   font-family: 'BMJUA' !important;
+   font-weight: normal !important;
+   color: #333333;
+}
+
+#showStatus {
+   border: 2px dashed #3e82a4;
+   font-weight: bold;
+   color: #3e82a4;
+   font-size: 12px;
+   padding: 5px 10px;
+}
+
+.movieDetailScore {
+   font-family: 'BMJUA';
+   font-size: 17px;
+   margin-top: 25px;
+   padding-bottom: 10px;
+   border-bottom: 1px solid #d9d6c8;
+}
+
+p {
+   display: inline-block;
+   margin: 0px;
+   font-family: 'GoyangDeogyang';
+}
+
+.movieDetailInfo {
+   padding-top: 20px;
+}
+
+.movieReserveBtn {
+   font-size: 14pt !important;
+   background-color: #9d3341 !important;
+   color: #d7d8db !important;
+   border: 2px solid #333333 !important;
+   border-radius: 5px !important;
+   text-align: center !important;
+}
+
+.movieDibsBtn {
+   font-size: 14pt !important;
+   color: #717171 !important;
+   border-radius: 5px !important;
+   border: 2px solid #505050 !important;
+}
+.movieDibsBtn2{
+   font-size: 14pt !important;
+   color: #ff5f5f !important;
+   border-radius: 5px !important;
+   border: 2px solid #505050 !important;
+}
+
+.movieDetailPlot {
+   font-family: 'GoyangDeogyang';
+   color: #5b5d5f;
+   margin-top: 50px;
+   width: 700px;
+   text-align: left;
+}
+
+.stilcut {
+   font-size: 28px !important;
+   color: black !important;
+   padding: 0 !important;
+   font-family: 'BMJUA' !important;
+}
+
+*, *:before, *:after {
+   box-sizing: border-box !important;
+}
+
+h2 {
+   font-size: 18px;
+}
+
+.commentInputBox {
+   display: flex;
+}
+
+.profileImgBox {
+   width: 81px;
+   height: 81px;
+}
+
+.profileImg {
+   border-radius: 50px;
+   border: 1px solid #ccc;
+   width: 100%;
+   height: 100%;
+}
+
+.starChoiceBox {
+   margin-left: 30px;
+   width: 168px;
+   height: 81px;
+   border: 1px solid #e1e1e1;
+}
+
+.commentBtn {
+   border: 1px solid #e1e1e1 !important;
+   width: 84px !important;
+   background-color: #f2f2f2 !important;
+   font-family: 'GoyangDeogyang';
+}
+
+.commentListBox {
+   width: 980px;
+}
+
+.commentBox {
+   padding: 30px 0px 30px 30px;
+   display: flex;
+   border-bottom: 1px solid #e1e1e1;
+}
+
+.commentIdStar {
+   width: 120px;
+   margin-left: 24px;
+}
+
+#star_grade {
+   font-size: 20pt;
+}
+
+.star-rating {
+   width: 100px;
+}
+
+.star-rating, .star-rating span {
+   display: inline-block;
+   height: 20px;
+   overflow: hidden;
+   background: url("/civ/resources/img/star.png") no-repeat;
+   background-size: 100px;
+}
+
+.star-rating span {
+   background-position: left bottom;
+   line-height: 0;
+   vertical-align: top;
+}
+
+.pagination {
+   font-family: 'BMJUA' !important;
+   padding-top: 40px;
+}
+
+.page-link {
+   color: #241d1e;
+}
+
+.page-link:hover {
+   background-color: #9b3341;
+   color: white;
+}
+
+.commentId {
+   font-size: 18px;
+   font-family: 'GoyangDeogyang';
+   color: #5b5d5f;
+}
+
+.thumbsBtn {
+   font-family: 'BMJUA' !important;
+   cursor: pointer;
+}
+
+.thumbsBtn:hover {
+   color: #9b3341;
+   text-decoration: none;
+}
+
+.videos {
+   width: 100% !important;
+   height: 100% !important;
+}

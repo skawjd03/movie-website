@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.coo.civ.mapper.MemberMapper">
+
+	<insert id="insertMemberShipInfo">
+		insert into pacch_membershipinfo values(#{cardNo},#{userNo},SYSDATE+(INTERVAL '3' YEAR),0)
+	</insert>
+	
+	<insert id="insertMemberShipGrade">
+		<selectKey keyColumn="price" keyProperty="membgPrice" resultType="int" order="BEFORE">
+			select nvl(sum(pay_price),0) price from pacch_payment where user_no = #{userNo}
+		</selectKey>
+		<choose>
+			<when test="membgPrice lt 100000">				
+				insert into PACCH_MEMBERSHIPGRADE values(membg_seq.nextval,#{userNo},#{membgPrice},10)
+			</when>
+			<when test="membgPrice lt 200000">
+				insert into PACCH_MEMBERSHIPGRADE values(membg_seq.nextval,#{userNo},#{membgPrice},20)
+			</when>
+			<otherwise>
+				insert into PACCH_MEMBERSHIPGRADE values(membg_seq.nextval,#{userNo},#{membgPrice},30)
+			</otherwise>
+		</choose>
+	</insert>
+	
+	<select id="selectUserPoint" resultType="integer"> 
+		select card_point from pacch_membershipinfo where user_no = #{userNo}
+	</select>
+	
+	<select id="selectMyinfo" resultMap="myinfo">
+		select m.*,c.*,to_char(m.user_birth,'yyyy')||'년'||to_char(m.user_birth,'MM')||'월'||to_char(m.user_birth,'dd')||'일' strBirth from pacch_member m left outer join 
+		(select card_no,card_date,card_point,g.* from 
+		pacch_membershipinfo i join 
+		(select user_No userNo,membg_price,discount_percent,discount_name from PACCH_MEMBERSHIPGRADE p join PACCH_MEMBERSHIPDISCOUNT d on p.DISCOUNT_CODE = d.DISCOUNT_CODE) g on i.user_no = g.userNo) c on c.userNo = m.user_no where m.user_no = #{userNo}
+	</select>
+	
+	<resultMap type="kr.coo.civ.vo.MemberShipVO" id="myinfo">
+		<id column="card_no" property="cardNo"/>
+		<result column="card_point" property="cardPoint"/>
+		<result column="membg_price" property="membgPrice"/>
+		<result column="discount_percent" property="discountPercent"/>
+		<result column="discount_name" property="discountName"/>
+		<association property="member" resultMap="myinfoMember">
+		</association>
+	</resultMap>
+	
+	<resultMap type="kr.coo.civ.vo.MemberVO" id="myinfoMember">
+		<id column="user_no" property="userNo"/>
+		<result column="user_name" property="userName"/>
+		<result column="user_id" property="userId"/>
+		<result column="strBirth" property="userBirth"/>
+		<result column="user_Gender" property="userGender"/>
+		<result column="user_nick" property="userNick"/>
+		<result column="user_phone" property="userPhone"/>
+		<result column="user_Genre" property="userGenre"/>		
+		<result column="user_Profile" property="userProfile"/>		
+	</resultMap>
+		
+	<select id="selectServiceList" resultType="kr.coo.civ.vo.ServiceVO">
+		select service_no serviceNo,to_char(service_date,'yyyy/MM/dd') serviceDate,service_title serviceTitle,service_content serviceContent,service_kindof serviceKindof,reply_check replyCheck from pacch_service where user_no = #{userNo} and isshow != 'N'
+	</select>
+	
+	<select id="selectServiceInfo" resultMap="serviceInfo">
+		select us.service_no serviceNo,service_kindof serviceKindof,service_title serviceTitle,to_char(service_date,'yyyy/MM/dd') serviceDate,service_content serviceContent,comment_writer commentWriter,to_char(comment_date,'yyyy/MM/dd') commentDate, comment_content commentContent from (select * from pacch_service where service_no = #{serviceNo}) us join pacch_servicecomment c on us.service_no = c.service_no
+	</select>
+	
+	<select id="selectServiceImg" resultType="kr.coo.civ.vo.ServiceImgVO">
+		select serviceimg_Path serviceimgPath from pacch_serviceimg where service_no = #{serviceNo}
+	</select>
+	
+	<resultMap type="kr.coo.civ.vo.dto.ServiceWithScommentWithSImgDTO" id="serviceInfo">
+		<association property="service" javaType="kr.coo.civ.vo.ServiceVO">
+			<id column="serviceNo" property="serviceNo"/>
+			<result column="serviceKindof" property="serviceKindof"/>
+			<result column="serviceTitle" property="serviceTitle"/>
+			<result column="serviceContent" property="serviceContent"/>
+			<result column="serviceDate" property="serviceDate"/>
+		</association>
+		<association property="comment" javaType="kr.coo.civ.vo.ServiceCommentVO">
+			<result column="commentWriter" property="commentWriter"/>
+			<result column="commentDate" property="commentDate"/>
+			<result column="commentContent" property="commentContent"/>
+		</association>
+		<collection property="imgList" column="serviceNo" javaType="ArrayList" ofType="kr.coo.civ.vo.ServiceImgVO" select="selectServiceImg"/>
+	</resultMap>
+	
+	<resultMap type="kr.coo.civ.vo.dto.PaymentWithMovieDTO" id="mypayment">
+		<association property="movie" javaType="kr.coo.civ.vo.MovieVO">
+			<result column="movieName" property="movieName"/>
+		</association>
+		<association property="payment" javaType="kr.coo.civ.vo.PaymentVO">
+			<result column="payNo" property="payNo"/>		
+			<result column="paySeat" property="paySeat"/>		
+			<result column="payPrice" property="payPrice"/>		
+			<result column="resDate" property="resDate"/>		
+			<result column="screen" property="screen"/>		
+			<result column="isshow" property="isshow"/>		
+		</association>
+	</resultMap>
+	
+	<select id="selectMyPayment" resultMap="mypayment">
+		select pay_no payNo,(select movie_name from pacch_movie where movie_code = p.movie_code) movieName,pay_seat paySeat,pay_price payPrice,res_date resDate,screen,isshow from pacch_payment p 
+		where user_no = #{userNo}
+		
+		<choose>
+			<when test='sinfo.startDate == "" and sinfo.finishDate == ""'>
+			</when>
+			<when test='sinfo.startDate == ""'>
+			<![CDATA[
+				and substr(res_date,0,10) <= #{sinfo.finishDate}
+				]]>
+			</when>
+			<when test='sinfo.finishDate == ""'>
+			<![CDATA[
+				and substr(res_date,0,10) >= #{sinfo.startDate}
+				]]>
+			</when>
+			<when test='sinfo.startDate != "" and sinfo.finishDate != ""'>
+			<![CDATA[
+				and substr(res_date,0,10) >= #{sinfo.startDate} and substr(res_date,0,10) <= #{sinfo.finishDate}
+				]]>
+			</when>
+		</choose>
+		
+		<choose>
+			<when test='sinfo.type=="Y"'>
+				and isshow='Y'
+			</when>
+			<when test='sinfo.type=="N"'>
+				and isshow='N'
+			</when>
+		</choose>
+	</select>
+	
+	<select id="selectMemberShipJoinCheck" resultType="string">
+		select 0 from pacch_membershipinfo where user_no = #{userNo}
+	</select>
+	
+	<update id="updateUserNick">
+   		update pacch_member set user_nick = #{changeNick} where user_no = #{userNo}
+   </update>
+   
+   <update id="updateUserProfile">
+   		update pacch_member set user_profile = #{profileName} where user_no = #{userNo}
+   </update>
+	
+	
+	
+	<select id="selectMyDibsList" resultType="kr.coo.civ.vo.MemberDibsVO">
+		select user_no userNo,dibs_no dibsNo,dibs_moviename dibsMovieName,m.* from 
+		pacch_userdibs inner join (select movie_code movieCode,movie_poster moviePoster from pacch_movie) m on
+		 dibs_moviecode = movieCode where user_no = #{userNo}
+	</select>
+	
+	<delete id="deleteDibs">
+		delete from pacch_userDibs where dibs_no = #{dibsNo}
+	</delete>
+	
+	<select id="selectRandomMovie" resultType="kr.coo.civ.vo.MovieVO">
+		select * from(select rownum,movie_name movieName,movie_code movieCode,movie_poster moviePoster from pacch_movie where isshow = 'Y' order by DBMS_RANDOM.value) where rownum = 1
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

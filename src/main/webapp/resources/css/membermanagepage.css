@@ -1,0 +1,196 @@
+@charset "UTF-8";
+html, body {
+	margin: 0;
+}
+
+.fa-home {
+	margin: 10px;
+}
+
+.linkList {
+	margin-top: 35px;
+}
+
+.cus-btn {
+	width: 100%;
+	text-align: left;
+}
+
+a {
+	text-decoration: none;
+}
+
+.w3-main {
+	margin-left: 200px;
+}
+
+.btn-active {
+	background-color: rgb(189, 189, 189);
+}
+
+.memberManageBox {
+	width: 1300px;
+	display: flex;
+}
+
+.memberInfoBox {
+	width: 60%;
+}
+
+.memberUpdateBox {
+	width: 30%;
+	margin-left: 145px;
+}
+
+.searchBox {
+	width: 780px;
+	padding: 10px;
+	border: 1px solid gray;
+	border-radius: 5px;
+	background-color: #fafafa;
+}
+
+.searchOption {
+	display: inline-block;
+	margin-left: 5px;
+	font-size: 15px;
+}
+
+.searchDate {
+	margin-left: 10px;
+	width: 150px;
+	height: 24px;
+}
+
+select {
+	width: 70px;
+	height: 24px;
+}
+
+#searchText {
+	width: 260px;
+	height: 24px;
+}
+
+.fixed-table-container {
+	/*테이블 고정 container width와 height는 공용으로 사용하기 위해 html단에서 지정 */
+	/*width: 800px;height: 200px;*/
+	position: relative;
+	padding-top: 30px;
+	width: 900px;
+	height: 600px;
+	background-color: #fafafa;
+	/* header-bg height값 */
+	border-radius: 3px;
+	border: 1px solid gray;
+}
+
+.fixed-table-header-bg {
+	/*헤더(타이틀 영역)*/
+	text-align: center;
+	color: #666;
+	background: #ecf5fc;
+	font-weight: bold;
+	height: 30px;
+	/* header-bg height값 */
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	/*border-bottom: 1px solid #000;*/
+}
+
+.fixed-table-wrapper {
+	overflow-x: hidden;
+	overflow-y: auto;
+	height: 100%;
+	background-color: #fafafa;
+}
+
+table.fixed-table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table.fixed-table td {
+	border-bottom: 1px solid #DDD;
+	height: 30px;
+	padding: 3px 10px 2px;
+	text-align: center;
+	color: #666;
+}
+
+table.fixed-table td+td {
+	border-left: 1px solid #DDD;
+}
+
+table.fixed-table th {
+	padding: 0px;
+	/* reset */
+}
+
+table.fixed-table .th-text {
+	position: absolute;
+	top: 0;
+	width: inherit;
+	line-height: 30px;
+	/* header-bg height값 */
+	border-left: 1px solid;
+	border-color: #3b3f2c #c4c4c4;
+}
+
+table.fixed-table th:first-child .th-text {
+	border-left: none;
+}
+
+table.fixed-table tbody tr:last-child td {
+	
+}
+
+table.fixed-table tbody tr:nth-child(even) {
+	background: #f6f6f6;
+}
+
+.updateForm {
+	height: 600px;
+	background-color: #fafafa;
+	/* header-bg height값 */
+	border-radius: 3px;
+	border: 1px solid gray;
+	padding: 30px 15px;
+}
+
+.updateMenu {
+	width: 420px;
+	height: 50px;
+}
+
+.updatePtag {
+	text-align: center;
+	margin: 0px;
+	display: inline-block;
+	width: 90px;
+}
+
+.btns {
+	width: 70px;
+	height: 35px;
+}
+
+.heaPtag {
+	font-size: 12pt;
+	color: rgb(76, 120, 134);
+	font-weight: bold;
+}
+
+.w3-main {
+	margin-left: 250px;
+}
+
+.dashTitle {
+	margin: 0px 0px 30px 0px;
+	font-family: 'GoyangDeogyang';
+	font-size: 36px;
+	font-weight: bold;
+	padding-top: 50px;
+}

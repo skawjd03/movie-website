@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.coo.civ.mapper.AuthMapper">
+
+	<select id="selectNaverMember"
+		resultType="kr.coo.civ.vo.MemberVO">
+		select user_nick userNick,user_phone userPhone,user_genre userGenre,user_no userNo,user_name userName,user_id userId,
+		user_birth userBirth,user_gender userGender,user_role userRole ,socialcheck,user_profile userProfile
+		from pacch_member
+		where user_id = #{userId} and isshow != 'N'
+	</select>
+
+	<insert id="insertNaverMember">
+		<selectKey keyProperty="userNo" resultType="int"
+			order="BEFORE">
+			select pacch_member_seq.nextval from dual
+		</selectKey>
+		insert into pacch_member
+		values(#{userNo},#{userName},#{userId},null,#{userBirth},#{userPhone},sysdate,
+		<choose>
+			<when test="userGenre == null">
+				null
+			</when>
+			<when test="userGenre != null">
+				#{userGenre}
+			</when>
+		</choose>
+		,
+		<choose>
+			<when test="userGender == 'M'.toString()">
+				'남'
+			</when>
+			<when test="userGender == 'W'.toString()">
+				'여'
+			</when>
+		</choose>
+		,'Y','N',#{userNick},'N','http://image2.megabox.co.kr/mop/home/user/profile_m.png')
+	</insert>
+
+	<select id="selectIdCheck"
+		resultType="kr.coo.civ.vo.MemberVO">
+		select nvl(count(*),0) count from pacch_member where user_id = #{userId}
+	</select>
+
+	<insert id="insertJoinUser" parameterType="kr.coo.civ.vo.MemberVO">
+		insert into PACCH_MEMBER
+		VALUES(pacch_member_seq.nextval,#{userName},#{userId},#{userPassword},#{userBirth},#{userPhone},sysdate,
+		<choose>
+			<when test="userGenre == null">
+				null
+			</when>
+			<otherwise>
+				#{userGenre}
+			</otherwise>
+		</choose>
+
+		,#{userGender},'Y','N',#{userNick},null,'http://image2.megabox.co.kr/mop/home/user/profile_m.png')
+		<selectKey keyProperty="userNo" resultType="int"
+			order="AFTER">
+			select user_no as userNo from PACCH_MEMBER where user_id = #{userId}
+		</selectKey>
+	</insert>
+	
+	<select id="selectMember" resultType="kr.coo.civ.vo.MemberVO">
+		select user_nick userNick,user_phone userPhone,user_genre userGenre,user_no userNo,user_name userName,user_id userId,user_birth userBirth,user_gender userGender,user_role userRole,user_profile userProfile from pacch_member where user_id = #{userId} and user_password = #{userPassword} and isshow != 'N' 
+	</select>
+
+	<insert id="insertInflowRoute">
+		insert into PACCH_INFLOWROUTE
+		VALUES(ROUTE_SEQ.nextval,#{userNo},#{routePath})
+	</insert>
+	<insert id="insertFavoriteMovie">
+		insert into Pacch_favoriteMovie
+		values(favorite_seq.nextval,#{userNo},#{movieName})
+	</insert>
+	<select id="phoneCheck" resultType="int">
+		select count(*) from pacch_member where user_phone = #{userPhone}
+	</select>
+</mapper>

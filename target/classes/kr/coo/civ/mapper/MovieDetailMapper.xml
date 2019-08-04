@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.coo.civ.mapper.MovieDetailMapper">
+
+	<resultMap type="kr.coo.civ.vo.MovieVO" id="movieDetailMap">
+			<result column="movie_code" property="movieCode"/>
+			<result column="movie_name" property="movieName"/>
+			<result column="movie_poster" property="moviePoster"/>
+			<result column="movie_story" property="movieStory"/>
+			<result column="movie_director" property="movieDirector"/>
+			<result column="movie_actor" property="movieActor"/>
+			<result column="movie_genre" property="movieGenre"/>
+			<result column="movie_age" property="movieAge"/>
+			<result column="movie_opendate" property="movieOpendate"/>
+			<result column="movie_totalview" property="movieTotalview"/>
+			<result column="movie_runtime" property="movieRuntime"/>
+	</resultMap>
+	
+	<resultMap type="kr.coo.civ.vo.dto.MovieCommentWithMemberDTO" id="MovieCommentList">
+		<association property="comment" resultMap="commentList"></association>
+		<association property="member" resultMap="memberList"></association>
+	</resultMap>
+	
+	<resultMap type="kr.coo.civ.vo.MovieCommentVO" id="commentList">
+		<result column="comment_no" property="commentNo"/>
+		<result column="user_id" property="userId"/>
+		<result column="comment_content" property="commentContent"/>
+		<result column="comment_star" property="commentStar"/>
+		<result column="comment_date" property="commentDate"/>
+		<result column="comment_likes" property="commentLikes"/>
+		<result column="commentcheck" property="commentcheck"/>
+	</resultMap>
+	<resultMap type="kr.coo.civ.vo.MemberVO" id="memberList">
+		<result column="user_profile" property="userProfile"/>
+	</resultMap>
+	
+	<select id="selectMovieDetail" resultMap="movieDetailMap">
+		select movie_code,movie_name,movie_poster,movie_story,movie_director,movie_actor,movie_genre,movie_age,
+		to_char(movie_opendate,'yyyy-MM-dd') movie_opendate,movie_totalview,movie_runtime from pacch_movie where movie_code = #{movie_code}
+	</select>
+
+	<select id="selectMovieCommentList" resultMap="MovieCommentList">
+      select * from(select c.*,l.comment_no commentcheck from (select rownum
+      rno,comment_no,user_id,comment_content,comment_star,
+      to_char(comment_date,'yy.MM.dd') comment_date,nvl(comment_likes,0)
+      comment_likes
+      from (SELECT * FROM pacch_movieComment 
+      
+      <if test="cri.order == '추천순'.toString()">order by comment_likes desc</if>
+      <if test="cri.order == '최신순'.toString()">order by comment_date desc</if>
+      
+      <![CDATA[
+      ) where movie_code = #{movieCode} and isshow != 'N') c left outer join 
+      (select comment_no from pacch_commentlikes where user_no=#{userNo} or nonlogin_md5ip=#{md5ip,jdbcType=VARCHAR}) l
+       on c.comment_no = l.comment_no) g left outer join pacch_member on g.user_id=pacch_member.user_id where rno between (#{cri.pageNum}-1)*5+1 and (#{cri.pageNum} * 5)
+      ]]>
+   </select>
+	
+	<resultMap type="kr.coo.civ.vo.MovieVideoVO" id="movieVideoList">
+		 <result column="trailer_no" property="trailerNo"/>
+		 <result column="trailer_video" property="trailerVideo"/>
+	</resultMap>
+	<resultMap type="kr.coo.civ.vo.MovieImgVO" id="movieImgList">
+		<result column="img_no" property="imgNo"/>
+		 <result column="img_stilcut" property="imgStilcut"/>
+	</resultMap>
+	
+	<select id="selectMovieVideo" resultMap="movieVideoList">
+		select trailer_no,trailer_video from pacch_movieVideo where movie_code = #{movie_code}
+	</select>
+	<select id="selectMovieImg" resultMap="movieImgList">
+		select img_no,img_stilcut from pacch_movieImg where movie_code = #{movie_code}
+	</select>
+	
+	<select id="countTotal" resultType="int">
+		select count(*) from pacch_moviecomment where movie_code=#{movieCode} and isShow != 'N'
+	</select>
+	
+	<select id="selectMovieGrade" resultType="float">
+      select nvl(p.grade,0) grade from pacch_movie m full outer join (select TRUNC(avg(comment_star),2) grade,movie_code movieCode from pacch_moviecomment group by movie_code) p on m.movie_code = p.movieCode where m.movie_code = #{movieCode}
+	</select>
+	
+	<insert id="insertMovieComment">
+		insert into pacch_movieComment values(MOVIECOMMENT_SEQ.nextval,#{movieCode},#{userId},#{cvo.commentContent},0,#{cvo.commentStar},sysdate,'Y')
+	</insert>
+	
+	<update id="updateLikes">
+		<if test="check == '0'.toString()">
+			update pacch_moviecomment set comment_likes = comment_likes+1 where comment_no = #{commentNo}
+		</if>
+		<if test="check != '0'.toString()">
+			update pacch_moviecomment set comment_likes = comment_likes-1 where comment_no = #{commentNo}
+		</if>
+	</update>
+
+	<insert id="insertThumbs">
+      <selectKey keyProperty="check" order="BEFORE" resultType="String">
+         select count(*) from pacch_commentlikes where comment_no = #{commentNo} and (user_no=#{userNo} or nonlogin_md5ip=#{md5ip,jdbcType=VARCHAR})
+      </selectKey>
+      <choose>
+         <when test="check == '0'.toString()">
+         	<if test="md5ip == null">
+	            insert into pacch_commentlikes values(#{commentNo},#{userNo},null)         	
+         	</if>
+         	<if test="md5ip != null">
+         		insert into pacch_commentlikes values(#{commentNo},null,#{md5ip})
+         	</if>
+         </when>
+         <otherwise>
+            delete from pacch_commentlikes where comment_no = #{commentNo} and (user_no=#{userNo} or nonlogin_md5ip=#{md5ip,jdbcType=VARCHAR})
+         </otherwise>
+      </choose>
+   </insert>
+   
+   <insert id="insertDibs">
+   		<selectKey keyProperty="check" order="BEFORE" resultType="String">
+         	select count(*) from pacch_userDibs where dibs_movieCode = #{dibsMovieCode} and user_no=#{userNo}
+      	</selectKey>
+      	<if test="check == '0'.toString()">
+      		insert into pacch_userDibs values(userDibs_seq.nextval,#{userNo},#{dibsMovieCode},#{dibsMovieName})
+      	</if>
+      	<if test="check != '0'.toString()">
+      		delete from pacch_userDibs where user_no = #{userNo} and dibs_movieCode = #{dibsMovieCode}
+      	</if>
+   </insert>
+   
+   <select id="selectDibs" resultType="int">
+   	 	select count(*) from pacch_userDibs where dibs_movieCode = #{movieCode} and user_no=#{userNo}
+   </select>
+</mapper>

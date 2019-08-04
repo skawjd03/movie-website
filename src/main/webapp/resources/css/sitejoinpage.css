@@ -1,0 +1,148 @@
+@charset "UTF-8";
+.join_container {
+	text-align: center;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+.joinTotalBox {
+	background-color: #fdfdfd;
+	border-radius: 5px;
+	padding: 10px;
+	border-bottom: 2px solid #313031;
+	display: inline-block;
+	width: 900px;
+	text-align: left;
+}
+
+.join_noticeBox {
+	text-align: left;
+	padding: 30px;
+}
+
+.join_notice {
+	border: 1px solid #313031;
+	overflow: auto;
+	height: 200px;
+	width: 800px;
+	padding: 15px;
+	background-color: #e5e2e1;
+}
+
+.agreeBtn {
+	margin-left: 740px;
+	font-family: 'BMJUA';
+}
+
+.joinformBox {
+	padding: 30px;
+	text-align: left;
+	border-top: 1px solid #313031;
+	font-family: 'BMJUA';
+}
+
+.joinlabel {
+	font-size: 20px;
+	font-weight: bold;
+	margin: 0;
+	display: inline-block;
+	margin-top: 20px;
+	font-family: 'GoyangDeogyang';
+}
+
+h3, h4 {
+	font-family: 'GoyangDeogyang' !important;
+}
+
+.Keymsg {
+	display: inline-block;
+	margin: 9px 0 -2px;
+	font-size: 12px;
+	line-height: 14px;
+	color: red;
+}
+
+.sel {
+	background: #fff
+		url(https://static.nid.naver.com/images/join/pc/sel_arr_2x.gif) 100%
+		50% no-repeat;
+	background-size: 20px 10px;
+	width: 120px;
+	height: 50px;
+	padding: 7px 8px 6px 7px;
+	font-size: 14px;
+	line-height: 18px;
+	-webkit-appearance: none;
+	border-radius: 5px;
+	border: 2px solid #6e7474;
+	margin-left: 10px;
+}
+
+.joininput {
+	width: 500px;
+	height: 50px;
+	padding: 7px 8px 6px 7px;
+	border-radius: 5px;
+	border: 2px solid #6e7474;
+}
+
+.joininput:focus {
+	border: 3px solid #9b3341;
+	outline: none;
+}
+
+.idcheckBtn {
+	margin-left: 10px;
+	display: inline-block;
+	height: 50px;
+	border-radius: 5px;
+	border: 2px solid #6e7474;
+	background-color: #313031;
+	color: #d7d8db;
+}
+
+#userbirthyear, #userbirthday {
+	width: 180px;
+	height: 50px;
+	padding: 7px 8px 6px 7px;
+	border-radius: 5px;
+	border: 2px solid #6e7474;
+}
+
+#userbirthyear:focus, #userbirthday:focus {
+	border: 3px solid #9b3341;
+	outline: none;
+}
+
+#userbirthday {
+	margin-left: 10px;
+}
+
+textarea {
+	width: 840px;
+	height: 200px;
+	margin-top: 10px;
+	padding: 7px 8px 6px 7px;
+	border-radius: 5px;
+	border: 2px solid #6e7474;
+	resize: none;
+}
+
+.joinBtn {
+	margin-top: 50px;
+	width: 200px;
+	height: 50px;
+	border-radius: 5px;
+	border: 2px solid #3a3d3d;
+	background-color: #9b3341;
+	font-size: 14pt;
+	color: #d7d8db;
+}
+
+.joinbtnBox {
+	text-align: center;
+}
+
+.pswd1label, .pswd2label {
+	font-size: 10pt;
+}

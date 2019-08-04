@@ -1,0 +1,206 @@
+@charset "UTF-8";
+body, html {
+	margin: 0px;
+	padding: 0px;
+}
+
+.pay_container {
+	width: 950px;
+	height: 795px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.select_info {
+	padding: 20px 50px 20px 50px;
+	background-color: white;
+	border-top: 2px solid rgb(35, 31, 32);
+}
+
+.m_img {
+	width: 200px;
+	height: 250px;
+}
+
+.m_name {
+	display:inline-block;
+	font-size: 30px;
+	font-family: 'GoyangDeogyang';
+}
+
+.detaile_info {
+	display: inline-block;
+	padding: 20px;
+	font-family: 'BMJUA';
+}
+
+.detaile {
+	display: inline-block;
+	font-size: 11pt;
+	opacity: 0.7;
+	font-weight:bold;
+	margin-right: 10px;
+	color: #555555;
+}
+
+
+.pay_total {
+	padding: 20px;
+	height: 61px;
+	background-color: #9e9e9e;
+}
+
+p {
+	font-size: 18px;
+	display: inline-block;
+	margin: 0px;
+	color: whitesmoke;
+}
+
+.payall {
+	float: right;
+	display: inline-block;
+	font-size: 25px;
+	color: whitesmoke;
+	line-height: 15px;
+}
+
+.pay_methodform {
+	height: 400px;
+	margin-top: 40px;
+}
+
+h2 {
+	color: whitesmoke;
+	height: 67px;
+	padding: 15px;
+	background-color: rgb(64, 64, 64);
+	font-weight: bold;
+	line-height: 35px;
+	margin-bottom: 0px;
+}
+
+.choice_form {
+	height: 190px;
+	padding: 40px 0px 0px 50px;
+	border-left: 2px solid #b3b3b3;
+	border-right: 2px solid #b3b3b3;
+}
+
+.choice_method {
+	padding: 30px 30px 30px 70px;
+	width: 850px;
+	height: 93px;
+	background-color: rgb(241, 239, 239);
+	font-size: 16px;
+	border-top: 2px solid #b3b3b3;
+}
+
+.selected {
+	display: inline-block;
+	margin-right: 40px;
+}
+
+.pay_last {
+	height: 154px;
+	background-color: rgb(42, 46, 50);
+}
+
+.pay_orderform {
+	width: 353px;
+	border-right: 2px solid #b3b3b3;
+	display: inline-block;
+}
+
+.pay_allform {
+	position: relative;
+	top: -100px;
+	display: inline-block;
+	height: 154px;
+	width: 550px;
+}
+
+dd {
+	font-size: 14px;
+	font-weight: bold;
+	color: rgb(205, 193, 151);
+	padding: 20px;
+}
+
+.font_sujung {
+	color: rgb(167, 169, 172);
+	font-size: 14px;
+	padding-left: 20px;
+}
+
+.font_sujung2 {
+	float: right;
+	font-size: 14px;
+	padding-right: 20px;
+}
+
+.font_sujung3 {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+strong {
+	font-size: 24px;
+	color: white;
+}
+
+.money {
+	margin-left: 210px;
+	margin-top: 20px;
+}
+
+#check-module {
+	background-color: #9e9e9e;
+	width: 100px;
+	height: 50px;
+	border: 0px;
+	color: aliceblue;
+	font-size: 16px;
+	font-weight: 700;
+	border-radius: 5%;
+	margin-top: 90px;
+	float: right;
+	cursor: pointer;
+	box-shadow: 0 2px rgb(214, 214, 214);
+}
+
+#check-module:hover {
+	background-color: rgb(216, 210, 203);
+}
+
+#check-module:active {
+	background-color: rgb(216, 210, 203);
+	box-shadow: 0 5px #808080;
+	transform: translateY(4px);
+}
+
+.dd_sujung {
+	font-size: 14px;
+	font-weight: bold;
+	color: rgb(205, 193, 151);
+	padding: 20px;
+	display: inline-block;
+}
+
+.dd_sujung2 {
+	position: relative;
+	top: 50px;
+	right: 70px;
+	font-size: 40px;
+	color: white;
+	display: inline-block;
+}
+.m_img{
+	display: inline-block;
+}
+zara{
+	font-weight: bold;
+	font-size: 15pt;
+	color: black;
+	font-family: 'GoyangDeogyang';
+}

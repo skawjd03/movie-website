@@ -1,0 +1,98 @@
+@charset "UTF-8";
+.movie_choice_box {
+	margin: 30px;
+	display: inline-block;
+	margin-left: 30px;
+	border-radius: 3%;
+	padding: 10px;
+	text-align: center;
+	font-weight: bold;
+	border: 1px solid rgb(173, 173, 173);
+	box-shadow: 2px 2px 10px rgb(116, 116, 116);
+}
+
+.movie_choice_box h4 {
+	font-size: 25pt;
+	border-bottom: 1px solid rgb(173, 173, 173);
+	margin-bottom: 14px;
+	font-family: 'BMJUA';
+}
+
+.movie_container {
+	overflow: hidden;
+}
+
+.movie_list {
+	width: 100%;
+}
+
+tr {
+	border-bottom: 1px solid black;
+	text-align: center;
+}
+
+.movie-option {
+	width: 100px;
+}
+
+.movie-title {
+	width: 300px;
+}
+
+.movie-gre {
+	width: 160px;
+}
+
+.table_scroll_maker {
+	height: 300px;
+	overflow: scroll;
+}
+
+table {
+	border-collapse: separate;
+	border-spacing: 0 10px;
+}
+
+.movie_poster {
+	width: 300px;
+	height: 450px;
+	display: inline-block;
+}
+
+.movie_realImg img{
+	width: 300px;
+	height: 450px;
+}
+
+button {
+	margin-top: 10px;
+}
+
+.middle{
+	width: 300px;
+	height: 450px;
+	padding-top:200px;
+	position: absolute;
+	font-size: 30pt;
+	font-weight:normal;
+	color: white;
+	transition: .5s ease;
+	opacity: 0;
+	font-family: 'Black Han Sans', sans-serif;
+}
+.movie_realImg{
+	position: absolute;
+	backface-visibility: hidden;
+}
+.movie_poster:hover .image {
+}
+
+.movie_poster:hover .middle {
+	background-color:black;
+  	opacity: 0.8;
+}
+.w3-btn{
+	border:1px solid #333333;
+	border-radius: 3px;
+	font-family: 'GoyangDeogyang';
+}

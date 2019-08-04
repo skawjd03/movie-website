@@ -1,0 +1,91 @@
+@charset "UTF-8";
+.setMonth {
+	display: inline-block;
+	margin: 0;
+}
+
+#dateContainer {
+	display: inline-block;
+	text-align: left;
+	width: 1000px;
+	height: 100px;
+	margin-bottom: 60px;
+}
+
+.dateLink {
+	margin-right:20px;
+	display: inline-block;
+	text-align: center;
+	width: 34px;
+}
+
+.monthInfo {
+	border-bottom: 2px solid black;
+	position: relative;
+}
+
+.setDay {
+	display: inline-block;
+	margin: 0;
+	margin-top: 10px;
+	padding: 6px;
+	border-radius: 25px;
+	width: 20px;
+}
+
+#movieAndSchedule {
+	width: 800px;
+	height: 500px;
+	display: inline-block;
+}
+
+.container {
+	text-align: center;
+}
+
+#msFlex {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	background-color: cornsilk;
+}
+
+.msFlex50 {
+	width: 50%;
+}
+
+.msHeader {
+	height: 50px;
+	text-align: left;
+	padding-left: 20px;
+	padding-top: 8px;
+	border-top: 2.5px solid black;
+	border-bottom: 0.5px solid black;
+}
+
+nulltag {
+	font-size: 30px;
+	font-family: 'Yeon Sung', cursive;
+}
+
+.wall {
+	border-right: 0.5px solid black;
+}
+
+#movieList {
+	text-align: left;
+	border-right: 0.5px solid black;
+	height: 440px;
+}
+
+.mlHeader {
+	border-bottom: 0.5px solid black;
+	height: 33px;
+	padding-top: 10px;
+	text-align: right;
+	padding-right: 10px;
+}
+
+.mlHeader span {
+	font-size: 15px;
+}

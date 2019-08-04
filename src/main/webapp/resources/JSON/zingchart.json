@@ -1,0 +1,381 @@
+{
+              "background-color": "#ecf2f6",
+              "graphset": [{
+                      "type": "bar",
+                      "background-color": "#fff",
+                      "border-color": "#dae5ec",
+                      "border-width": "1px",
+                      "height": "30%",
+                      "width": "96%",
+                      "x": "2%",
+                      "y": "3%",
+                      "title": {
+                          "margin-top": "7px",
+                          "margin-left": "9px",
+                          "font-family": "Arial",
+                          "text": "날짜별 매출액",
+                          "background-color": "none",
+                          "shadow": 0,
+                          "text-align": "left",
+                          "font-size": "11px",
+                          "font-weight": "bold",
+                          "font-color": "#707d94"
+                      },
+                      "scale-y": {
+                          "values": "0:300000:80000",
+                          "max-ticks": 4,
+                          "max-items": 4,
+                          "line-color": "none",
+                          "tick": {
+                              "visible": false
+                          },
+                          "item": {
+                              "font-color": "#8391a5",
+                              "font-family": "Arial",
+                              "font-size": "10px",
+                              "padding-right": "5px"
+                          },
+                          "guide": {
+                              "rules": [{
+                                      "rule": "%i == 0",
+                                      "line-width": 0
+                                  },
+                                  {
+                                      "rule": "%i > 0",
+                                      "line-style": "solid",
+                                      "line-width": "1px",
+                                      "line-color": "#d2dae2",
+                                      "alpha": 0.4
+                                  }
+
+                              ]
+                          }
+                      },
+                      "scale-x": {
+                          "items-overlap": true,
+                          "max-items": 9999,
+                          "values": [],
+                          "offset-y": "1px",
+                          "line-color": "#d2dae2",
+                          "item": {
+                              "font-color": "#8391a5",
+                              "font-family": "Arial",
+                              "font-size": "11px",
+                              "padding-top": "2px"
+                          },
+                          "tick": {
+                              "visible": false,
+                              "line-color": "#d2dae2"
+                          },
+                          "guide": {
+                              "visible": false
+                          }
+                      },
+                      "plotarea": {
+                          "margin": "45px 20px 38px 45px"
+                      },
+                      "plot": {
+                          "bar-width": "33px",
+                          "hover-state": {
+                              "visible": false
+                          },
+                          "animation": {
+                              "delay": 500,
+                              "effect": "ANIMATION_SLIDE_BOTTOM"
+                          },
+                          "tooltip": {
+                              "font-color": "#fff",
+                              "font-family": "Arial",
+                              "font-size": "11px",
+                              "border-radius": "6px",
+                              "shadow": false,
+                              "padding": "5px 10px",
+                              "background-color": "#707e94"
+                          }
+                      },
+                      "series": [{
+                          "values": [],
+                          "styles": [{
+                                  "background-color": "#4dbac0"
+                              },
+                              {
+                                  "background-color": "#25a6f7"
+                              },
+                              {
+                                  "background-color": "#ad6bae"
+                              },
+                              {
+                                  "background-color": "#707d94"
+                              },
+                              {
+                                  "background-color": "#f3950d"
+                              },
+                              {
+                                  "background-color": "#e62163"
+                              },
+                              {
+                                  "background-color": "#4e74c0"
+                              }
+                          ]
+                      }]
+                  },
+                  {
+                      "type": "hbar",
+                      "background-color": "#fff",
+                      "border-color": "#dae5ec",
+                      "border-width": "1px",
+                      "x": "2%",
+                      "y": "35.2%",
+                      "height": "63%",
+                      "width": "30%",
+                      "title": {
+                          "margin-top": "7px",
+                          "margin-left": "9px",
+                          "text": "상영 영화별 예매현황",
+                          "background-color": "none",
+                          "shadow": 0,
+                          "text-align": "left",
+                          "font-family": "Arial",
+                          "font-size": "11px",
+                          "font-color": "#707d94"
+                      },
+                      "scale-y": {
+                          "line-color": "none",
+                          "tick": {
+                              "visible": false
+                          },
+                          "item": {
+                              "visible": false
+                          },
+                          "guide": {
+                              "visible": false
+                          }
+                      },
+                      "scale-x": {
+                          "values": "",
+                          "line-color": "none",
+                          "tick": {
+                              "visible": false
+                          },
+                          "item": {
+                              "width": 200,
+                              "text-align": "left",
+                              "offset-x": 206,
+                              "offset-y": -12,
+                              "font-color": "#8391a5",
+                              "font-family": "Arial",
+                              "font-size": "14px",
+                              "font-weight":"bold",
+                              "padding-bottom": "8px"
+                          },
+                          "guide": {
+                              "visible": false
+                          }
+                      },
+                      "plot": {
+                          "bars-overlap": "100%",
+                          "bar-width": "12px",
+                          "thousands-separator": ",",
+                          "tooltip": {
+                              "font-color": "#ffffff",
+                              "background-color": "#707e94",
+                              "font-family": "Arial",
+                              "font-size": "11px",
+                              "border-radius": "6px",
+                              "shadow": false,
+                              "padding": "5px 10px"
+                          },
+                          "hover-state": {
+                              "background-color": "#707e94"
+                          },
+                          "animation": {
+                              "delay": 500,
+                              "effect": "ANIMATION_EXPAND_LEFT"
+                          }
+                      },
+                      "plotarea": {
+                          "margin": "30px 15px 10px 15px"
+                      },
+                      "series": [{
+                              "values": [],
+                              "z-index": 2,
+                              "data-rvalues": [],
+                              "styles": [{
+                                      "background-color": "#4dbac0"
+                                  },
+                                  {
+                                      "background-color": "#4dbac0"
+                                  },
+                                  {
+                                      "background-color": "#4dbac0"
+                                  },
+                                  {
+                                      "background-color": "#4dbac0"
+                                  },
+                                  {
+                                      "background-color": "#4dbac0"
+                                  },
+                                  {
+                                      "background-color": "#4dbac0"
+                                  },
+                                  {
+                                      "background-color": "#4dbac0"
+                                  },
+                                  {
+                                      "background-color": "#4dbac0"
+                                  },
+                                  {
+                                      "background-color": "#4dbac0"
+                                  },
+                                  {
+                                      "background-color": "#4dbac0"
+                                  },
+                                  {
+                                      "background-color": "#4dbac0"
+                                  },
+                                  {
+                                      "background-color": "#4dbac0"
+                                  },
+                                  {
+                                      "background-color": "#4dbac0"
+                                  }
+                              ],
+                              "tooltip-text": "%data-rvalues좌석"
+                          },
+                          {
+                              "max-trackers": 0,
+                              "values": [],
+                              "data-rvalues": [],
+                              "background-color": "#d9e4eb",
+                              "z-index": 1,
+                              "value-box": {
+                                  "visible": true,
+                                  "offset-y": "-12px",
+                                  "offset-x": "-74px",
+                                  "text-align": "right",
+                                  "font-color": "#8391a5",
+                                  "font-family": "Arial",
+                                  "font-size": "11px",
+                                  "text": "총 %data-rvalues좌석",
+                                  "padding-bottom": "8px"
+                              }
+                          }
+                      ]
+                  },
+                  {
+                      "type":"line",
+                      "background-color":"#fff",
+                      "border-color":"#dae5ec",
+                      "border-width":"1px",
+                      "width":"64%",
+                      "height":"63%",
+                      "x":"34%",
+                      "y":"35.2%",
+                      "title":{
+                          "margin-top":"7px",
+                          "margin-left":"12px",
+                          "text":"날짜별 방문자 통계",
+                          "background-color":"none",
+                          "shadow":0,
+                          "text-align":"left",
+                          "font-family":"Arial",
+                          "font-size":"11px",
+                          "font-color":"#707d94"
+                      },
+                      "plot":{
+                          "animation":{
+                              "delay":500,
+                              "effect":"ANIMATION_SLIDE_LEFT"
+                          }
+                      },
+                      "plotarea":{
+                          "margin":"50px 25px 70px 46px"
+                      },
+                      "scale-y":{
+                          "values":"0:5000:1000",
+                          "line-color":"none",
+                          "guide":{
+                              "line-style":"solid",
+                              "line-color":"#d2dae2",
+                              "line-width":"1px",
+                              "alpha":0.5
+                          },
+                          "tick":{
+                              "visible":false
+                          },
+                          "item":{
+                              "font-color":"#8391a5",
+                              "font-family":"Arial",
+                              "font-size":"10px",
+                              "padding-right":"5px"
+                          }
+                      },
+                      "scale-x":{
+                          "line-color":"#d2dae2",
+                          "line-width":"2px",
+                          "values":["01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"],
+                          "tick":{
+                              "line-color":"#d2dae2",
+                              "line-width":"1px"
+                          },
+                          "guide":{
+                              "visible":false
+                          },
+                          "item":{
+                              "font-color":"#8391a5",
+                              "font-family":"Arial",
+                              "font-size":"10px",
+                              "padding-top":"5px"
+                          }
+                      },
+                      "legend":{
+                          "layout":"x4",
+                          "background-color":"none",
+                          "shadow":0,
+                          "margin":"auto auto 15 auto",
+                          "border-width":0,
+                          "item":{
+                              "font-color":"#707d94",
+                              "font-family":"Arial",
+                              "padding":"0px",
+                              "margin":"0px",
+                              "font-size":"9px"
+                          },
+                          "marker":{
+                              "show-line":"true",
+                              "type":"match",
+                              "font-family":"Arial",
+                              "font-size":"10px",
+                              "size":4,
+                              "line-width":2,
+                              "padding":"3px"
+                          }
+                      },
+                      "crosshair-x":{
+                          "lineWidth":1,
+                          "line-color":"#707d94",
+                          "plotLabel":{
+                              "shadow":false,
+                              "font-color":"#000",
+                              "font-family":"Arial",
+                              "font-size":"10px",
+                              "padding":"5px 10px",
+                              "border-radius":"5px",
+                              "alpha":1
+                          },
+                          "scale-label":{
+                              "font-color":"#ffffff",
+                              "background-color":"#707d94",
+                              "font-family":"Arial",
+                              "font-size":"10px",
+                              "padding":"5px 10px",
+                              "border-radius":"5px"
+                          }
+                      },
+                      "tooltip":{
+                          "visible":false
+                      },
+                      "series":[]
+                  }
+              ]
+          }

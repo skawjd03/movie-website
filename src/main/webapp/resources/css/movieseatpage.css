@@ -1,0 +1,173 @@
+@charset "UTF-8";
+.movie_seat {
+	width: 950px;
+	height: 680px;
+	padding: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top:80px;
+	margin-bottom: 100px;
+}
+
+.movie_people {
+	padding: 10px 5px;
+	background-color: rgb(97, 97, 97);
+}
+
+.movie_check {
+	background-color: rgb(97, 97, 97);
+	height: 250px;
+	padding: 10px 10px;
+	color: white;
+}
+
+.movie_people span {
+	color: white;
+	margin-left: 10px;
+}
+
+.movie_people button {
+	border-radius: 20%;
+	border: none;
+}
+
+.movie_seat_choice {
+	background-color: rgb(250, 244, 234);
+	height: 400px;
+	text-align: center;
+}
+
+.minus-fixed {
+	width: 23px;
+}
+
+.screen {
+	margin-top: 30px;
+	display: inline-block;
+	width: 400px;
+	background-color: rgb(75, 75, 75);
+	color: white;
+}
+
+.seat-box {
+	height: 346px;
+}
+
+.col-sm-2 {
+	padding: 0px;
+}
+
+.seat_notice {
+	text-align: left;
+	display: inline-block;
+	width: 100px;
+	height: 200px;
+	position: relative;
+	left: 400px;
+	top: -200px;
+}
+
+.block {
+	display: inline-block;
+	width: 18px;
+	border-radius: 20%;
+	height: 18px;
+	text-align: center;
+	color: white;
+}
+
+.movie_postBox {
+	width: 150px;
+	height: 195px;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.movie_postInfo {
+	position: relative;
+	bottom: 115px;
+	left: 7px;
+	display: inline-block;
+}
+
+.postInfo {
+	margin-left: 5px;
+}
+
+.line {
+	background-color: black;
+	display: inline-block;
+	width: 1px;
+	height: 100%;
+}
+
+.paymentInfo_title {
+	background-color: rgb(75, 75, 75);
+	display: inline-block;
+	width: 280px;
+	color: darkkhaki;
+	padding-left: 5px;
+	font-weight: bold;
+}
+
+.middle {
+	position: relative;
+	bottom: 160px;
+	height: 200px;
+	padding-top: 10px;
+	margin-left: 15px;
+}
+
+.payment_left {
+	margin-top: 4px;
+	color: antiquewhite;
+	display: inline-block;
+	width: 70px;
+}
+
+.payment_right {
+	margin-top: 4px;
+	display: inline-block;
+	width: 120px;
+}
+
+.payInfo {
+	display: inline-block;
+	position: relative;
+	bottom: 140px;
+	height: 200px;
+	padding-top: 10px;
+	margin-left: 15px;
+}
+
+.pay_title {
+	background-color: rgb(75, 75, 75);
+	display: inline-block;
+	width: 270px;
+	color: darkkhaki;
+	padding-left: 5px;
+	font-weight: bold;
+}
+.btn-active {
+	background-color: rgb(189, 189, 189);
+}
+
+.paymentDo {
+	position: relative;
+	right: -200px;
+	top: 100px;
+	background-color: rgb(83, 83, 83);
+}
+
+.seat_container {
+	margin-top: 40px;
+}
+
+.ptags {
+	margin-bottom: 3px; display : inline-block;
+	margin: 0px;
+	border-radius: 50%;
+	color: white;
+	margin-left: 3px;
+	display: inline-block;
+}

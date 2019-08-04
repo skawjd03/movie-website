@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.coo.civ.mapper.ManageMapper">
+
+	<select id="selectSCM" parameterType="string"
+		resultMap="selectScheduleMovie">
+		select
+		schedule_date,schedule_screen,to_char(schedule_start,'yyyy/MM/dd-hh24:mi')
+		schedule_Start,to_char(schedule_finish,'yyyy/MM/dd-hh24:mi')
+		schedule_Finish,m.movie_name from pacch_schedule p join pacch_movie m
+		on p.movie_code = m.movie_code where schedule_date = #{scheduleDate}
+		order by schedule_screen,schedule_start
+	</select>
+
+	<select id="selectMovieNames" resultType="kr.coo.civ.vo.MovieVO">
+		select movie_code
+		movieCode,movie_name movieName from
+		pacch_movie where isshow!='N'
+	</select>
+	<select id="selectMovieDetailInfo"
+		resultType="kr.coo.civ.vo.MovieVO">
+		select movie_code movieCode, movie_name movieName,
+		movie_nation movieNation,
+		movie_poster moviePoster, movie_story
+		movieStory,movie_director movieDirector,
+		movie_actor movieActor,
+		movie_Genre movieGenre, movie_age movieAge,
+		movie_opendate
+		movieOpendate,
+		movie_totalview movieTotalview, movie_runtime
+		movieRuntime from pacch_movie where
+		movie_code = #{movieCode}
+	</select>
+
+	<insert id="insertSchedule">
+		insert into pacch_schedule
+		values(pacch_schedule_seq.nextval,to_date(#{sd},'yyyy/MM/dd'),#{schedule.scheduleScreen},to_date(#{schedule.scheduleStart},'yyyy/MM/dd
+		HH24:mi'),to_date(#{schedule.scheduleFinish},'yyyy/MM/dd
+		HH24:mi'),#{schedule.movieCode},'0x00000,0x00000,0x00000,0x00000,0x00000,0x00000,0x00000,0x00000,0x00000',180)
+	</insert>
+
+	<delete id="deleteSchedule">
+		delete from pacch_schedule where schedule_date =
+		to_date(#{scheduleDate},'yyyy/MM/dd') and schedule_start =
+		to_date(#{scheduleStart},'yyyy/MM/dd-hh24:mi') and schedule_screen =
+		#{scheduleScreen}
+	</delete>
+
+
+	<resultMap type="kr.coo.civ.vo.dto.ScheduleWithMovieVO"
+		id="selectScheduleMovie">
+		<association property="schedule"
+			javaType="kr.coo.civ.vo.ScheduleVO">
+			<result column="schedule_date" property="scheduleDate" />
+			<result column="schedule_screen" property="scheduleScreen" />
+			<result column="schedule_start" property="scheduleStart" />
+			<result column="schedule_Finish" property="scheduleFinish" />
+		</association>
+		<association property="movie"
+			javaType="kr.coo.civ.vo.MovieVO">
+			<result column="movie_name" property="movieName" />
+		</association>
+	</resultMap>
+
+	<resultMap type="kr.coo.civ.vo.dto.ScheduleWithMovieVO"
+		id="selectseatstatus">
+		<association property="schedule"
+			javaType="kr.coo.civ.vo.ScheduleVO">
+			<result column="schedule_screen" property="scheduleScreen" />
+			<result column="seat" property="seat" />
+		</association>
+		<association property="movie"
+			javaType="kr.coo.civ.vo.MovieVO">
+			<result column="movie_name" property="movieName" />
+		</association>
+	</resultMap>
+
+	<resultMap type="kr.coo.civ.vo.MovieVO" id="manageList">
+		<id column="movie_code" property="movieCode" />
+		<result column="movie_poster" property="moviePoster" />
+		<result column="movie_name" property="movieName" />
+		<result column="isshow" property="isshow" />
+		<result column="movie_age" property="movieAge" />
+	</resultMap>
+
+	<select id="selectMovieRank" resultType="int">
+		select
+		rno
+		from
+		(select
+		rownum rno , movieCode,movie_name movieName
+		from
+		(
+		select m.movie_code as
+		movieCode , movie_name, nvl(totalsell,0) totalsell
+		from pacch_movie m
+		full outer join (select count(pay_price/8000)
+		totalsell, movie_code
+		from pacch_payment group by movie_code) p on
+		m.movie_code =
+		p.movie_code order by totalsell desc
+		)
+		) where movieCode =#{movieCode}
+	</select>
+
+	<select id="selectMovieGrade" resultType="float">
+		select nvl(p.grade,0)
+		grade from pacch_movie m full outer join (select
+		TRUNC(avg(comment_star),2) grade,movie_code movieCode from
+		pacch_moviecomment group by movie_code) p on m.movie_code =
+		p.movieCode where m.movie_code = #{movieCode}
+	</select>
+
+	<select id="selectSeatStatus" resultMap="selectseatstatus">
+		select schedule_screen
+		,seat,movie_name from pacch_schedule p join pacch_movie m on
+		p.movie_code = m.movie_code where schedule_date = #{scheduleDate}
+		order by schedule_screen,schedule_start
+	</select>
+
+	<insert id="insertMovie">
+		insert into pacch_movie
+		values(#{movieCode},#{movieName},#{movieNation},#{moviePoster},#{movieWideposter},#{movieStory},#{movieDirector},#{movieActor},#{movieGenre},#{movieAge},to_date(#{movieOpendate},'yyyymmdd'),#{movieTotalview},'Y',#{movieRuntime})
+	</insert>
+
+	<insert id="insertMovieImg">
+		insert into pacch_movieImg
+		values(pacch_movieimg_seq.nextval,#{movieCode},#{movieImg},'Y')
+	</insert>
+
+	<insert id="insertMovieVideo">
+		insert into pacch_movievideo
+		values(pacch_movieimg_seq.nextval,#{movieCode},#{movieVideo},'Y')
+	</insert>
+
+	<select id="selectManageList" resultMap="manageList">
+		<![CDATA[
+			select * from (select rownum rno , m.* from (select movie_code,movie_name,movie_poster,isshow,movie_age from pacch_movie order by movie_opendate desc ) m) where rno > #{startNum} and rno <= #{finishNum}
+		]]>
+	</select>
+
+	<update id="updateMovieIsshow"
+		parameterType="kr.coo.civ.vo.MovieVO">
+		<selectKey keyProperty="isshow" resultType="string"
+			order="BEFORE">
+			select isshow from pacch_movie where movie_code = #{movieCode}
+		</selectKey>
+		<choose>
+			<when test="isshow == 'Y'.toString()">
+				update pacch_movie set isshow = 'N' where movie_code
+				= #{movieCode}
+			</when>
+			<when test="isshow == 'N'.toString()">
+				update pacch_movie set isshow = 'Y' where movie_code
+				= #{movieCode}
+			</when>
+		</choose>
+	</update>
+
+	<update id="updateTotalView">
+		update pacch_movie set movie_totalview =
+		#{movieTotalview} where movie_code = #{movieCode}
+	</update>
+
+	<select id="selectServiceList"
+		parameterType="kr.coo.civ.vo.domain.SearchInfo"
+		resultType="kr.coo.civ.vo.ServiceVO">
+		select service_no serviceNo,user_no userNo,service_kindof
+		serviceKindof,service_title serviceTitle,
+		to_char(service_date,'yyyy/MM/dd hh24:mi') serviceDate,reply_check
+		replyCheck from pacch_service
+		<trim prefix="where" prefixOverrides="AND |OR ">
+			<if test='userNo != 0'>
+				user_no = #{userNo}
+			</if>
+			<if test="replyCheck == true">
+				AND reply_Check = 'N'
+			</if>
+			<if
+				test='startDate != null and finishDate != null and startDate != "" and finishDate != "" '>
+				AND to_char(service_date,'yyyy-MM-dd') between #{startDate} and
+				#{finishDate}
+			</if>
+		</trim>
+	</select>
+
+	<select id="selectServiceInfo" resultMap="serviceInfo">
+		select
+		s.*,i.serviceimg_path serviceimgPath from (select service_no
+		serviceNo, service_title serviceTitle, service_content
+		serviceContent,user_no userNo from pacch_service where service_no =
+		#{userNo}) s left outer join pacch_serviceimg i on serviceNo =
+		i.service_no
+	</select>
+
+	<resultMap id="serviceInfo" type="kr.coo.civ.vo.dto.ServiceWithImg">
+		<id column="serviceNo" property="serviceNo" />
+		<result column="serviceTitle" property="serviceTitle" />
+		<result column="serviceContent" property="serviceContent" />
+		<result column="userNo" property="userNo" />
+		<collection property="imgPath" resultMap="serviceImg"></collection>
+	</resultMap>
+
+	<resultMap type="kr.coo.civ.vo.ServiceImgVO" id="serviceImg">
+		<result column="serviceimgPath" property="serviceimgPath" />
+	</resultMap>
+
+	<select id="rereplycheck" resultType="int">
+		select count(*) from
+		pacch_servicecomment where service_no = #{serviceNo}
+	</select>
+	<insert id="insertServiceComment">
+		insert into pacch_servicecomment
+		values(pacch_servicecomment_seq.nextval,#{serviceNo},sysdate,#{serviceComment},'GM_ZARAGUNG')
+	</insert>
+
+	<update id="updateServiceReplyCheck">
+		update pacch_service set reply_check = 'Y' where
+		service_no = #{serviceNo}
+	</update>
+
+
+	<select id="selectMemberManageList" resultMap="MemberManageList">
+		select
+		user_no,user_name,user_id,user_phone,to_char(user_birth,'yyyy/MM/dd') user_birth,
+		to_char(join_date,'yyyy/MM/dd') join_date,user_gender,user_nick,nvl(socialcheck,'G') socialcheck from
+		pacch_member order by join_date desc
+	</select>
+
+	<select id="selectSearchMemberList" resultMap="MemberManageList">
+         <![CDATA[
+         select user_no,user_name,user_id,user_phone,to_char(user_birth,'yyyy/MM/dd') user_birth,
+      to_char(join_date,'yyyy/MM/dd') join_date,user_gender,user_nick,nvl(socialcheck,'G') socialcheck from pacch_member where 1=1 and join_date between to_date(#{searchStart},'yyyy-MM-dd') and to_date(#{searchFinish},'yyyy-MM-dd')
+         ]]>
+		<if test="memberType != null">
+			<if test="memberType == 'G'.toString()">
+				and socialcheck is null
+			</if>
+			<if test="memberType == 'N'.toString()">
+				and socialcheck = 'N'
+			</if>
+		</if>
+		<if test="searchType != null">
+			<choose>
+				<when test="searchType== 'all'.toString()">
+					and (user_no like '%' || #{searchKeyword} ||'%' or
+					user_id like '%' ||
+					#{searchKeyword} ||'%' or user_name like '%' ||
+					#{searchKeyword}
+					||'%')
+				</when>
+				<when test="searchType== 'no'.toString()">
+					and user_no like '%' || #{searchKeyword} ||'%'
+				</when>
+				<when test="searchType== 'name'.toString()">
+					and user_name like '%' || #{searchKeyword} ||'%'
+				</when>
+				<when test="searchType== 'id'.toString()">
+					and user_id like '%' || #{searchKeyword} ||'%'
+				</when>
+			</choose>
+		</if>
+		<choose>
+			<when test="searchGender == 'all'.toString()">
+			</when>
+			<otherwise>
+				and user_gender = #{searchGender}
+			</otherwise>
+		</choose>
+		<if test="searchIsshow != null">
+			and isshow = #{searchIsshow}
+		</if>
+		order by join_date desc
+	</select>
+
+	<update id="updateMemberManage">
+		update pacch_member
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="mvo.userName != null">
+				user_name = #{mvo.userName}
+			</if>
+			<if test="mvo.userId != null">
+				, user_id = #{mvo.userId}
+			</if>
+			<if test="mvo.userBirth != null">
+				, user_birth = #{mvo.userBirth}
+			</if>
+			<if test="mvo.userPhone != null">
+				, user_phone = #{mvo.userPhone}
+			</if>
+			<if test="mvo.userGender != null">
+				, user_gender = #{mvo.userGender}
+			</if>
+			<if test="mvo.userNick != null">
+				, user_nick = #{mvo.userNick}
+			</if>
+			<if test="mvo.socialcheck != null">
+				<if test="mvo.socialcheck == 'G'.toString()">
+					, socialcheck = null
+				</if>
+				<if test="mvo.socialcheck == 'N'.toString()">
+					, socialcheck = 'N'
+				</if>
+			</if>
+			<if test="isshow != null">
+				, isshow = #{isshow}
+			</if>
+		</trim>
+		where user_no = #{mvo.userNo}
+	</update>
+
+	<select id="selectOneMember" resultMap="MemberManageList">
+		select
+		user_no,user_name,user_id,user_phone,user_birth,
+		join_date,user_gender,user_nick,nvl(socialcheck,'G') socialcheck from
+		pacch_member where user_no = #{userNo}
+	</select>
+
+	<delete id="deleteMember">
+		delete from pacch_member where user_no = #{userNo}
+	</delete>
+
+	<insert id="insertMember">
+		insert into pacch_member
+		values(pacch_member_seq.nextval,#{mvo.userName},#{mvo.userId},'1234',#{mvo.userBirth},
+		#{mvo.userPhone},sysdate,null,#{mvo.userGender},#{isshow},'N',#{mvo.userNick},null)
+	</insert>
+
+	<resultMap type="kr.coo.civ.vo.MemberVO"
+		id="MemberManageList">
+		<id column="user_no" property="userNo" />
+		<result column="user_name" property="userName" />
+		<result column="user_id" property="userId" />
+		<result column="user_phone" property="userPhone" />
+		<result column="user_birth" property="userBirth" />
+		<result column="join_date" property="joinDate" />
+		<result column="user_gender" property="userGender" />
+		<result column="user_nick" property="userNick" />
+		<result column="socialcheck" property="socialcheck" />
+	</resultMap>
+
+	<insert id="insertBillboard">
+		insert into pacch_billboard values(billboard_seq.nextval,#{billboardImg},#{finishDate},#{billboardLink})
+	</insert>
+
+</mapper>
