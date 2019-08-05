@@ -107,6 +107,11 @@
 	<script src="/civ/resources/js/movieChoice.js?after"></script>
 	<script src="/civ/resources/js/movieListShow.js"></script>
 	<script>
+	
+		var mCode = "${mCode}";
+		if(mCode != ''){
+			movieChoice(mCode);
+		}
 		function seatPage(){
 			if($('#selectedScheduleCode').val()==''){
 				alert('영화를 선택하세요 ');

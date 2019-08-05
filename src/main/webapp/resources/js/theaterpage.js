@@ -50,7 +50,7 @@ var selectedDate = new Date();
 	    						scRow.append('<text class="scheduleRowHead"> '+sList[j].scheduleScreen+' | 총 180석</text>');
     						}
 	    					nowScreen = sList[j].scheduleScreen;
-	    					var tooltip = $('<a data-toggle="tooltip" class="tip-top timeBox" scCode="'+sList[j].scheduleCode+'" title="Default tooltip"><div class="time">'+sList[j].scheduleStart+'</div><div class="seat">'+sList[j].countseat+'석</div></a>');
+	    					var tooltip = $('<a href="/civ/payment/movieseat?selected='+sList[j].scheduleCode+'" data-toggle="tooltip" class="tip-top timeBox" scCode="'+sList[j].scheduleCode+'" title="Default tooltip"><div class="time">'+sList[j].scheduleStart+'</div><div class="seat">'+sList[j].countseat+'석</div></a>');
 	    					tooltip.tooltip({
 	    						placement: 'top',
 	    			            template:'<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header">'+data[i].movieName+'('+sList[j].scheduleScreen+')</h3><div class="popover-body">' + movieSeatDraw(sList[j].seat.split(',')) + '</div><div class="hoverDate">'+sList[j].scheduleDate+' '+sList[j].scheduleStart+'</div></div>'

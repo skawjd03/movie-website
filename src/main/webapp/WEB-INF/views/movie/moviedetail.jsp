@@ -54,8 +54,8 @@
 					<c:if test="${dibsCheck == 0}">
 						<input type="button" id="dibBtn" class="w3-btn movieDibsBtn" value="♥ 찜하기">		
 					</c:if>
-					<input type="button"
-						class="w3-btn movieReserveBtn" value="예매하기">
+					<a href="/civ/payment/reserve?movieCode=${mddto.movievo.movieCode}"><input type="button"
+						class="w3-btn movieReserveBtn" value="예매하기"></a>
 				</div>
 			</div>
 		</div>

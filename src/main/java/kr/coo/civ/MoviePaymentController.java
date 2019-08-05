@@ -62,11 +62,14 @@ public class MoviePaymentController {
 	
 	// 빠른예매 페이지
 	@GetMapping("/reserve")
-	public void getReservePage(Model model) {
+	public void getReservePage(Model model,String movieCode) {
 		MovieQueryType type = new MovieQueryType();
 		type.setType("개봉순");
 		List<MovieVO> movieList = service.getMovieList(type);
 		model.addAttribute("mList",movieList);
+		if(movieCode != null) {
+			model.addAttribute("mCode",movieCode);
+		}
 	}
 	
 	// 영화 티켓 구매 페이지

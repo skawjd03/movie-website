@@ -397,14 +397,14 @@ a {
 									data-tip="상세보기"><img src="/civ/resources/img/searcj.png"
 										style="height: 100%; width: 100%"></a></li>
 								<li><a
-									href="/pacch/reserve/moviereserve.do?m_code=${poster.movieCode }"
+									href="/civ/payment/reserve?movieCode=${poster.movieCode }"
 									data-tip="예매하기"><img src="/civ/resources/img/ticket.png"
 										style="height: 100%; width: 100%"></a></li>
 							</ul>
 						</div>
 						<div class="product-content">
 							<h3 class="title">
-								<a href="#"> <c:choose>
+								<a href="/civ/payment/reserve?movieCode=${poster.movieCode }"> <c:choose>
 										<c:when test="${poster.movieAge == '12세이상관람가'}">
 											<p class="ptags"
 												style="background-color: #3bade0; border: 3px solid #3bade0;">12</p>
