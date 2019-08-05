@@ -118,7 +118,7 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
 		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 		crossorigin="anonymous"></script>
-	<scrip src="/civ/resources/js/movieupdatepage.js?after"></script>
+	<script src="/civ/resources/js/movieupdatepage.js?after"></script>
 	<script type="text/javascript">
         $('.linkList li').each(function(){
 	    	if($(this).html()=='영화 등록'){
