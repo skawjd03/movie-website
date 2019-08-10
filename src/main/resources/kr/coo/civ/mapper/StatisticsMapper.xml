@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.coo.civ.mapper.StatisticsMapper">
-	<select id="selectGenderData" resultType="kr.coo.civ.vo.statistics.GenderDTO">
+	<select id="selectGenderData" resultType="GenderDTO">
 		select trunc((count(*)/(select count(*) from pacch_member)*100)) value,user_gender gender from pacch_member group by user_gender
 	</select>
 	
-	<select id="selectJoinUserCountData" resultType="kr.coo.civ.vo.statistics.JoinUserCountDTO">
+	<select id="selectJoinUserCountData" resultType="JoinUserCountDTO">
 		select nvl(m.joinDate,f.joinDate) joinDate,nvl(m.total,0) male,nvl(f.total,0) female,(nvl(m.total,0)+nvl(f.total,0)) total from (select to_char(join_date,'yyyy/MM/dd') joinDate,SUM(count(*)) OVER(ORDER BY to_char(join_date,'yyyy/MM/dd')) total from (select * from pacch_member where user_gender = '남') p group by to_char(join_date,'yyyy/MM/dd')) m FULL OUTER JOIN
 		(select to_char(join_date,'yyyy/MM/dd') joinDate,SUM(count(*)) OVER(ORDER BY to_char(join_date,'yyyy/MM/dd')) total from (select * from pacch_member where user_gender = '여') p group by to_char(join_date,'yyyy/MM/dd')) f on m.joinDate = f.joinDate
 	</select>
 	
-	<select id="selectSalesData" resultType="kr.coo.civ.vo.statistics.SalesDTO">
+	<select id="selectSalesData" resultType="SalesDTO">
 		<![CDATA[
 			select * from (select to_char(res_time,'yyyy/MM/dd') resTime,sum(pay_price) money from pacch_payment group by to_char(res_time,'yyyy/MM/dd') having to_char(res_time,'yyyy/MM/dd')<=sysdate order by to_char(res_time,'yyyy/MM/dd') desc) where rownum <= 7
 		]]>
 	</select>
 	
-	<select id="selectReserveRateData" resultType="kr.coo.civ.vo.statistics.ReserveRateDTO">
+	<select id="selectReserveRateData" resultType="ReserveRateDTO">
 		select movie_name movieName,reserveseat,totalseat from (select movie_code,sum(180-countseat) reserveseat,sum(180) totalseat from pacch_schedule group by movie_code) m join pacch_movie p on m.movie_code = p.movie_code where p.isshow !='N'
 	</select>
 	
@@ -38,12 +38,12 @@
 		select ldate,time,visitorCount from (select to_char(logdate,'yyyy/MM/dd') ldate,to_char(logdate,'hh24:mi') time,visitorCount from pacch_visitors_log where logDate > sysdate-4 order by logDate desc) order by ldate desc,time
 	</select>
 	
-	<resultMap type="kr.coo.civ.vo.statistics.VisitorCountDTO" id="visitorResultMap">
+	<resultMap type="VisitorCountDTO" id="visitorResultMap">
 		<id column="ldate" property="logDate"/>
 		<collection property="visitorData" resultMap="visitorlist">
 		</collection>
 	</resultMap>
-	<resultMap type="kr.coo.civ.vo.statistics.VisitorDataList" id="visitorlist">
+	<resultMap type="VisitorDataList" id="visitorlist">
 		<result column="time" property="time"/>
 		<result column="visitorCount" property="visitorCount"/>
 	</resultMap>

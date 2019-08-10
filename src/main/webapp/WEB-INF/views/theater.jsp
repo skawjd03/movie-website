@@ -21,7 +21,7 @@
 	<%@include file="/resources/include/header.jsp"%>
 	<div class="theater_container">
 		<div class="theater_img">
-			<img src="/civ/resources/img/theater.png"
+			<img src="/civ${initParam['imagePath']}theater.png"
 				style="width: 100%; height: 100%;">
 		</div>
 		<div class="theater_nav">
@@ -87,7 +87,7 @@
 				<h3>편의시설</h3>
 			</div>
 			<div class="theater_fac_info">
-				<img src="/civ/resources/img/fac_info.png"
+				<img src="/civ${initParam['imagePath']}fac_info.png"
 					style="width: 100%; height: 100%;">
 			</div>
 		</div>
@@ -103,7 +103,7 @@
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	<script src="/civ/resources/js/dateFormat.js"></script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f38410ab260f3194c29e05f2f56c508f&libraries=services"></script>
-	<script src="/civ/resources/js/theaterpage.js"></script>
+	<script src="/civ/resources/js/theaterpage.js?after"></script>
 </body>
 
 </html>

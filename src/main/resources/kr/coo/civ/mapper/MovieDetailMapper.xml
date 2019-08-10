@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.coo.civ.mapper.MovieDetailMapper">
 
-	<resultMap type="kr.coo.civ.vo.MovieVO" id="movieDetailMap">
+	<resultMap type="MovieVO" id="movieDetailMap">
 			<result column="movie_code" property="movieCode"/>
 			<result column="movie_name" property="movieName"/>
 			<result column="movie_poster" property="moviePoster"/>
@@ -16,12 +16,12 @@
 			<result column="movie_runtime" property="movieRuntime"/>
 	</resultMap>
 	
-	<resultMap type="kr.coo.civ.vo.dto.MovieCommentWithMemberDTO" id="MovieCommentList">
+	<resultMap type="MovieCommentWithMemberDTO" id="MovieCommentList">
 		<association property="comment" resultMap="commentList"></association>
 		<association property="member" resultMap="memberList"></association>
 	</resultMap>
 	
-	<resultMap type="kr.coo.civ.vo.MovieCommentVO" id="commentList">
+	<resultMap type="MovieCommentVO" id="commentList">
 		<result column="comment_no" property="commentNo"/>
 		<result column="user_id" property="userId"/>
 		<result column="comment_content" property="commentContent"/>
@@ -30,8 +30,9 @@
 		<result column="comment_likes" property="commentLikes"/>
 		<result column="commentcheck" property="commentcheck"/>
 	</resultMap>
-	<resultMap type="kr.coo.civ.vo.MemberVO" id="memberList">
+	<resultMap type="MemberVO" id="memberList">
 		<result column="user_profile" property="userProfile"/>
+		<result column="user_nick" property="userNick"></result>
 	</resultMap>
 	
 	<select id="selectMovieDetail" resultMap="movieDetailMap">
@@ -56,11 +57,11 @@
       ]]>
    </select>
 	
-	<resultMap type="kr.coo.civ.vo.MovieVideoVO" id="movieVideoList">
+	<resultMap type="MovieVideoVO" id="movieVideoList">
 		 <result column="trailer_no" property="trailerNo"/>
 		 <result column="trailer_video" property="trailerVideo"/>
 	</resultMap>
-	<resultMap type="kr.coo.civ.vo.MovieImgVO" id="movieImgList">
+	<resultMap type="MovieImgVO" id="movieImgList">
 		<result column="img_no" property="imgNo"/>
 		 <result column="img_stilcut" property="imgStilcut"/>
 	</resultMap>

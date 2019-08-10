@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.coo.civ.mapper.MoviePageMapper">
+
+
+<!-- @author HJS
+	 @since 2019.07.18
+	 @version 1.0
+	 @see 영화 페이지 LIST 보기, ajax 플러스 버튼, HOME 버튼, 상영예정작 보기 버튼 구현 하기위해 작성함. -->
+	
+	
+
+	<resultMap type="MovieVO" id="moviePageMap">
+			<result column="movie_code" property="movieCode"/>
+			<result column="movie_name" property="movieName"/>
+			<result column="movie_poster" property="moviePoster"/>
+			<result column="movie_story" property="movieStory"/>
+			<result column="movie_director" property="movieDirector"/>
+			<result column="movie_actor" property="movieActor"/>
+			<result column="movie_genre" property="movieGenre"/>
+			<result column="movie_age" property="movieAge"/>
+			<result column="movie_opendate" property="movieOpendate"/>
+			<result column="movie_totalview" property="movieTotalview"/>
+			<result column="movie_runtime" property="movieRuntime"/>
+	</resultMap>
+	
+	<select resultType="MovieVO" id="selMovieList">
+			SELECT
+			    movie_code movieCode, movie_name movieName, movie_poster moviePoster
+			FROM
+			    pacch_movie
+			WHERE
+				isshow != 'N'
+	</select>
+	
+	<select resultType="MovieVO" id="selMovieSoon">
+			SELECT
+			     movie_code movieCode, movie_name movieName, movie_poster moviePoster, movie_opendate movieOpendate
+			FROM
+			    pacch_movie
+			WHERE
+				isshow != 'N'
+				AND
+				movie_opendate > sysdate
+	</select>
+	
+</mapper>

@@ -23,6 +23,7 @@
 
 <script src="https://kit.fontawesome.com/244e92cc7b.js"></script>
 
+
 <!-- Demo styles -->
 <style>
 body {
@@ -267,14 +268,14 @@ a {
 									<li><a href="/civ/movie/moviedetailpage2?movieCode=${f.movieCode}"
 										data-tip="상세보기"><img src="/civ/resources/img/searcj.png"
 											style="height: 100%; width: 100%"></a></li>
-									<li><a href="/civ/payment/reserve?movieCode=${f.movieCode}"
+									<li><a href="/civ/payment/reserve?movieCode=${f.movieCode }"
 										data-tip="예매하기"><img src="/civ/resources/img/ticket.png"
 											style="height: 100%; width: 100%"></a></li>
 								</ul>
 							</div>
 							<div class="">
 								<h3 class="title">
-									<a href="/civ/payment/reserve?movieCode=${f.movieCode}"> 
+									<a href="/civ/payment/reserve?movieCode=${f.movieCode }"> 
 										<c:choose>
 											<c:when test="${f.movieAge == '12세이상관람가'}">
 												<p class="ptags"
@@ -340,6 +341,8 @@ a {
 	        clickable: true,
 	      },
 	    });
+
+	    
 
   </script>
 </body>

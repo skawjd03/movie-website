@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+			
+<mapper namespace="svSQL">
+	<insert id="quetionRegistor" parameterType="ServiceDTO">
+		insert into
+    		pacch_service
+		values(
+    		(SELECT max(service_no) +1 from pacch_service),
+    		#{u_no}, sysdate, #{s_title}, #{s_content}, #{s_kindof}, 'N','Y'
+    	)
+	</insert> 
+	
+	<insert id="questionImg" parameterType="ServiceImgDTO">
+		<selectKey keyProperty="s_no" resultType="int" order="BEFORE">
+			select 
+			    MAX(service_no)
+			from
+			    pacch_service
+			where
+			    user_no = #{u_no}
+		</selectKey>
+		insert into
+		    pacch_serviceimg
+		values(
+			(select
+    			max(serviceimg_no) +1
+			from
+    			pacch_serviceimg ),	 #{s_no}, #{simg_path}, #{oriName}
+		    )
+	</insert>
+</mapper>

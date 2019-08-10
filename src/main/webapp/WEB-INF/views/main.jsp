@@ -20,7 +20,7 @@
 	height: 750px;
 	width:100%;
 	text-align: center;
-	background-image: url("/civ/resources/img/back.png");
+	background-image: url("/civ${initParam['imagePath']}back.png");
 }
 
 .main_slide {
@@ -388,23 +388,23 @@ a {
 				<div>
 					<div class="product-grid">
 						<div class="product-image">
-							<a href="#"> <img class="pic-1" src="${poster.moviePoster }"
+							<a href="#"> <img class="pic-1" src="${initParam['uploadPath']}${poster.moviePoster }"
 								style="z-index: 0">
 							</a>
 							<ul class="social">
 								<li><a
 									href="/civ/movie/moviedetailpage2?movieCode=${poster.movieCode}"
-									data-tip="상세보기"><img src="/civ/resources/img/searcj.png"
+									data-tip="상세보기"><img src="/civ${initParam['imagePath']}searcj.png"
 										style="height: 100%; width: 100%"></a></li>
 								<li><a
-									href="/civ/payment/reserve?movieCode=${poster.movieCode }"
-									data-tip="예매하기"><img src="/civ/resources/img/ticket.png"
+									href="/civ/payment/reserve?movieCode=${poster.movieCode}"
+									data-tip="예매하기"><img src="/civ${initParam['imagePath']}ticket.png"
 										style="height: 100%; width: 100%"></a></li>
 							</ul>
 						</div>
 						<div class="product-content">
 							<h3 class="title">
-								<a href="/civ/payment/reserve?movieCode=${poster.movieCode }"> <c:choose>
+								<a href="/civ/payment/reserve?movieCode=${poster.movieCode}"> <c:choose>
 										<c:when test="${poster.movieAge == '12세이상관람가'}">
 											<p class="ptags"
 												style="background-color: #3bade0; border: 3px solid #3bade0;">12</p>

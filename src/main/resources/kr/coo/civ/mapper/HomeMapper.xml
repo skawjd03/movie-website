@@ -4,7 +4,7 @@
 	<select id="getTotalSchedule" resultMap="totalSchedule">
 		select p.*,m.movie_name movieName,m.movie_runtime movieRuntime, to_char(movie_opendate,'yyyy-MM-dd') movieOpendate,movie_Genre movieGenre from (select seat,schedule_code scheduleCode,movie_code movieCode, schedule_screen scheduleScreen,to_char(schedule_date,'yyyy/MM/dd') scheduleDate,to_char(schedule_start,'hh24:mi') scheduleStart,countseat from pacch_schedule where schedule_date = #{date} order by movie_code,schedule_screen,schedule_start) p join pacch_movie m on p.movieCode = m.movie_code
 	</select>
-	<resultMap type="kr.coo.civ.vo.dto.TotalScheduleDTO" id="totalSchedule">
+	<resultMap type="TotalScheduleDTO" id="totalSchedule">
 		<id column="movieCode" property="movieCode"></id>
 		<result column="movieName" property="movieName"></result>
 		<result column="movieGenre" property="movieGenre"/>
@@ -13,7 +13,7 @@
 		<collection property="schedule" resultMap="totalScheduleList"></collection>
 	</resultMap>
 	
-	<resultMap type="kr.coo.civ.vo.ScheduleVO" id="totalScheduleList">
+	<resultMap type="ScheduleVO" id="totalScheduleList">
 		<result column="scheduleCode" property="scheduleCode"></result>
 		<result column="scheduleScreen" property="scheduleScreen"></result>
 		<result column="scheduleStart" property="scheduleStart"></result>
@@ -22,15 +22,15 @@
 		<result column="seat" property="seat"></result>
 	</resultMap>
 	
-	<select id="selectFrontMainMovie" resultType="kr.coo.civ.vo.MovieVO">
+	<select id="selectFrontMainMovie" resultType="MovieVO">
 		select movie_code movieCode,movie_poster moviePoster,movie_genre movieGenre,movie_age movieAge,movie_name movieName from pacch_movie where isshow = 'Y'
 	</select>
 	
-	<select id="selectBillboardList" resultType="kr.coo.civ.vo.BillboardVO">
+	<select id="selectBillboardList" resultType="BillboardVO">
 		select billboard_no billboardNo,billboard_img billboardImg,finishDate,billboard_link billboardLink from pacch_billboard where finishdate >= to_char(sysdate,'yyyy-MM-dd')
 	</select>
 	
-	<select id="selectMainMovieList" parameterType="kr.coo.civ.vo.domain.SearchInfo" resultType="kr.coo.civ.vo.MovieVO">
+	<select id="selectMainMovieList" parameterType="SearchInfo" resultType="MovieVO">
 		select movie_code movieCode,movie_name movieName, movie_age movieAge from (select * from pacch_movie where isshow='Y' order by 
 		
 		<choose>
@@ -47,7 +47,7 @@
 		]]>
 	</select>
 	
-	<select id="selectMainMoviePosterList" resultType="kr.coo.civ.vo.MovieVO">
+	<select id="selectMainMoviePosterList" resultType="MovieVO">
 		<![CDATA[
 			select * from (select per,m.movie_code movieCode,movie_name movieName,movie_poster moviePoster, movie_age movieAge, movie_genre movieGenre from pacch_movie m join (select movie_code,trunc(sum(180-countseat)/sum(180)*100,1) per from pacch_schedule group by movie_code) s on m.movie_code = s.movie_code order by per desc) where rownum <=3
 		]]>

@@ -22,7 +22,7 @@ public class PageingInfo {
    
    public PageingInfo(Criteria cri) {
       this.cri = cri; // 요청 정보
-      this.total = cri.getTotal(); // 전체 게시글 수
+      this.total = cri.getTotal();
       this.endPage = (int) (Math.ceil(cri.getPageNum() / 10.0))*10;
       this.startPage = this.endPage - 9;
       

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+			
+<mapper namespace="ntSQL">
+	
+	<select id="noticeTitle" resultType="NoticeDTO">
+		SELECT
+			notice_title n_title
+		FROM
+			pacch_notice
+	</select>
+	
+	<select id="noticeList" resultType="NoticeDTO" parameterType="PageUtil">
+		
+		SELECT  
+			rno, n_no, n_title, to_char(n_date, 'yyyy/mm/dd')n_date, n_hit
+		FROM
+		    (
+		    SELECT
+		        rownum rno, n_no, n_title, n_date, n_hit
+		    FROM
+		    	(
+			        SELECT
+			          notice_no n_no,
+			          notice_title n_title, notice_date n_date,
+			          notice_hit n_hit
+			        FROM
+			          pacch_notice
+			        WHERE
+			            isshow = 'N'
+			        ORDER BY
+			            notice_date desc
+		        )
+		    )
+		WHERE
+		    rno between #{startContent} AND #{endContent}
+		
+		<!-- 
+		SELECT
+	  	  notice_no n_no, notice_title n_title, notice_date n_date, notice_hit n_hit
+		FROM
+	  	  pacch_notice
+	  	WHERE
+	  		isshow = 'N'
+		ORDER BY
+	    	notice_date desc 
+	    	-->
+    </select>
+    
+   <select id="totalCnt" resultType="int">
+		SELECT
+			count(*) cnt
+		FROM
+			pacch_notice
+		WHERE
+			isshow = 'N'
+	</select>
+    
+    <select id="noticeSearch" resultType="NoticeDTO" parameterType="PageUtil">
+    	
+    	SELECT
+		    rno, n_no, n_title, to_char(n_date, 'yyyy/mm/dd') n_date, n_hit
+		FROM
+		    (
+		    SELECT
+		        rownum rno, n_no, n_title, n_date, n_hit
+		    FROM(
+		        SELECT 
+		             notice_no n_no, notice_title n_title, notice_date n_date, notice_hit n_hit
+		        FROM 
+		            pacch_notice 
+		        WHERE
+		            notice_title like '%'|| #{word} || '%'
+		        ORDER BY
+		            n_date desc
+		    )
+		)
+		WHERE
+   			 rno between #{startContent} AND #{endContent}
+    	
+
+    </select>
+    
+    <select id="searchTotal" resultType="int" parameterType="string">
+    	SELECT 
+		     count(*)
+		FROM 
+		    pacch_notice 
+		WHERE
+		    notice_title like '%'|| #{word} || '%' 
+    </select>
+    
+    <update id="noticeHit" parameterType="int">
+		update
+		    pacch_notice
+		set
+		    notice_hit = notice_hit +1
+		where
+		    notice_no = #{no}
+    </update>
+    
+    <select id="noticeContent" resultType="NoticeDTO" parameterType="int">
+    	SELECT
+		    notice_no n_no, notice_title n_title, notice_content n_content, notice_hit n_hit, notice_date n_date
+		FROM
+		    pacch_notice
+		WHERE
+		    notice_no = #{no}
+    </select>
+    
+    <select id="branchInfo" resultType="BranchVO" parameterType="string">
+    	<!-- 
+    	select
+		    br_no, br_name, br_loc, br_tel
+		from
+		    pacch_branch
+		where
+		    br_name = #{brname}
+		 -->
+		 SELECT
+		 	br_no, br_name, br_loc, br_tel
+		 FROM
+		 	pacch_branch
+		 WHERE
+		 	br_name = #{brname}
+    </select>
+    
+    	<select id="TotalCnt" resultType="int">
+		SELECT
+			count(*) cnt
+		FROM
+			pacch_notice
+		WHERE
+			b_isshow = 'N'
+	</select>
+    <select id="selList" resultType="NoticeDTO" parameterType="PageUtil">
+		SELECT
+		    rno, n_no, n_title, n_date, n_hit
+		FROM
+		    (
+		    SELECT
+		        rownum rno, n_no, n_title, n_date, n_hit
+		    FROM    (
+		           SELECT
+		               notice_no n_no, notice_title n_title,
+		               notice_date n_date, notice_hit n_hit
+		            FROM
+		                pacch_notice
+		            WHERE
+		                isshow = 'N'
+		            ORDER BY
+		                n_date DESC
+		            )
+		    )
+		WHERE
+			rno between #{startContent} AND #{endContent}
+	</select>
+	
+</mapper>

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.coo.civ.mapper.PaymentMapper">
 
-	<select id="selectMovie" resultType="kr.coo.civ.vo.MovieVO">
+	<select id="selectMovie" resultType="MovieVO">
 		select movie_age as movieAge,movie_name as movieName, m.movie_code as
 		movieCode from pacch_movie m
 		<include refid="choiceMovieSelector" />
@@ -26,16 +26,16 @@
 		</choose>
 	</sql>
 
-	<resultMap type="kr.coo.civ.vo.domain.ShowPaymentInfo"
+	<resultMap type="ShowPaymentInfo"
 		id="scheduleList">
 		<result column="showtime" property="showtime" />
 		<association property="movie"
-			javaType="kr.coo.civ.vo.MovieVO">
+			javaType="MovieVO">
 			<result column="movie_name" property="movieName" />
 			<result column="movie_age" property="movieAge" />
 		</association>
 		<association property="schedule"
-			javaType="kr.coo.civ.vo.ScheduleVO">
+			javaType="ScheduleVO">
 			<result column="schedule_code" property="scheduleCode" />
 			<result column="schedule_screen" property="scheduleScreen" />
 			<result column="countseat" property="countseat"></result>
@@ -55,11 +55,11 @@
 		order by schedule_screen,showtime
 	</select>
 
-	<resultMap type="kr.coo.civ.vo.domain.ShowPaymentInfo"
+	<resultMap type="ShowPaymentInfo"
 		id="seatInfo">
 		<result column="showtime" property="showtime" />
 		<association property="movie"
-			javaType="kr.coo.civ.vo.MovieVO">
+			javaType="MovieVO">
 			<result column="movie_name" property="movieName" />
 			<result column="movie_age" property="movieAge" />
 			<result column="movie_poster" property="moviePoster" />
@@ -67,7 +67,7 @@
 			<result column="movie_runtime" property="movieRuntime" />
 		</association>
 		<association property="schedule"
-			javaType="kr.coo.civ.vo.ScheduleVO">
+			javaType="ScheduleVO">
 			<result column="scheduleCode" property="scheduleCode" />
 			<result column="scheduleDate" property="scheduleDate" />
 			<result column="scheduleScreen" property="scheduleScreen" />
@@ -90,7 +90,7 @@
 	</select>
 
 	<select id="selectPaid"
-		resultType="kr.coo.civ.vo.PaymentVO">
+		resultType="PaymentVO">
 		select movie_code as
 		movieCode,to_char(schedule_date,'yyyy/MM/dd') || ' '
 		||to_char(schedule_start,'hh24:mi')||'~'||to_char(schedule_finish,'hh24:mi')
@@ -117,14 +117,14 @@
 			call updateUserMembership(#{amount}, #{userNo})
 		}
 	</update>
-	<update id="updatePaymentIsshow" parameterType="kr.coo.civ.vo.PaymentVO">
+	<update id="updatePaymentIsshow" parameterType="PaymentVO">
 		update pacch_payment set isshow = #{isshow} where pay_no = #{payNo}
-		<selectKey resultType="kr.coo.civ.vo.PaymentVO" keyProperty="paySeat,resDate,screen,payPrice,userNo"  order="AFTER">
+		<selectKey resultType="PaymentVO" keyProperty="paySeat,resDate,screen,payPrice,userNo"  order="AFTER">
 			select pay_seat paySeat,res_date resDate,screen,pay_price payPrice,user_no userNo from pacch_payment where pay_no = #{payNo}
 		</selectKey>
 	</update>
 	
-	<select id="selectDBSeat" resultType="kr.coo.civ.vo.ScheduleVO">
+	<select id="selectDBSeat" resultType="ScheduleVO">
 		select seat,schedule_code scheduleCode from pacch_schedule where to_char(schedule_start,'yyyy/MM/dd hh24:mi') = #{date} and schedule_screen = #{screen}
 	</select>
 	
@@ -142,11 +142,11 @@
 		select pay_no payNo,pay_price payPrice,movie_name movieName,pay_seat paySeat, res_date resDate,screen,pay_method payMethod from (select * from pacch_payment where pay_no =#{payNo}) p join pacch_movie m on p.movie_code = m.movie_code
 	</select>
 	
-	<resultMap type="kr.coo.civ.vo.dto.PaymentWithMovieDTO" id="mypayment">
-		<association property="movie" javaType="kr.coo.civ.vo.MovieVO">
+	<resultMap type="PaymentWithMovieDTO" id="mypayment">
+		<association property="movie" javaType="MovieVO">
 			<result column="movieName" property="movieName"/>
 		</association>
-		<association property="payment" javaType="kr.coo.civ.vo.PaymentVO">
+		<association property="payment" javaType="PaymentVO">
 			<result column="payNo" property="payNo"/>		
 			<result column="paySeat" property="paySeat"/>		
 			<result column="payPrice" property="payPrice"/>		

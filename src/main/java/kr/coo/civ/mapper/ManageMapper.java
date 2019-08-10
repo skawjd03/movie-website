@@ -56,7 +56,7 @@ public interface ManageMapper {
 	public int deleteMember(int userNo);
 
 	public int insertMember(@Param("mvo") MemberVO mvo, @Param("isshow") String isshow);
-
+	
 	public List<ServiceVO> selectServiceList(SearchInfo sInfo);
 
 	public ServiceWithImg selectServiceInfo(int serviceNo);

@@ -1,5 +1,6 @@
 package kr.coo.civ;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -39,6 +40,9 @@ public class ManageController {
 
 	@Setter(onMethod_ = @Autowired)
 	ServletContext context;
+	
+	private static String[] imgCheck= {"png","PNG","jpg","JPG"};
+	private static String[] videoCheck = {"mp4","MP4"};
 
 	// ################# 페이지 요청 #################
 	// 영화 스케줄 페이지
@@ -140,8 +144,30 @@ public class ManageController {
 	@PostMapping("/movieupload")
 	public String updateMovieData(MultipartFile[] imageFiles, MultipartFile[] videoFiles, MultipartFile wideposter,
 			MultipartFile poster, Model model, MovieVO mvo, HttpSession session) {
+		for(MultipartFile file : imageFiles) {
+			String[] tmp = file.getOriginalFilename().split("\\.");
+			if(Arrays.binarySearch(imgCheck, tmp[tmp.length-1]) <= 0) {
+				return "redirect:/common/exception";
+			}
+		}
+		
+		for(MultipartFile file : videoFiles) {
+			String[] tmp = file.getOriginalFilename().split("\\.");
+			if(Arrays.binarySearch(videoCheck, tmp[tmp.length-1]) <= 0) {
+				return "redirect:/common/exception";
+			}
+		}
+		String[] extension = wideposter.getOriginalFilename().split("\\.");
+		if(Arrays.binarySearch(imgCheck,extension[extension.length-1]) <= 0) {
+			return "redirect:/common/exception";
+		}
+		extension = poster.getOriginalFilename().split("\\.");
+		if(Arrays.binarySearch(imgCheck, extension[extension.length-1]) <= 0) {
+			return "redirect:/common/exception";
+		}
+		
 		int result = service.uploadMovie(imageFiles, videoFiles, wideposter, poster, mvo,
-				context.getRealPath("\\resources\\upload"));
+				context.getRealPath(context.getInitParameter("uploadPath")),context.getRealPath(context.getInitParameter("imagePath")));
 		if (result == 1) {
 			return "/admin/movieschedule";
 		} else {
@@ -223,6 +249,7 @@ public class ManageController {
 		return "redirect:/main";
 	}
 
+	// 회원관리 회원정보 검색
 	@PostMapping("/searchmember")
 	@ResponseBody
 	public List<MemberVO> searchMember(MemberSearchDTO msto, HttpSession session, HttpServletRequest request)
@@ -230,6 +257,7 @@ public class ManageController {
 		return service.SearchMemberList(msto);
 	}
 
+	// 회원관리 회원정보 수정
 	@ResponseBody
 	@PostMapping("/updatemember")
 	public MemberVO updateMember(MemberVO mvo, String isshow, HttpSession session, HttpServletRequest request)
@@ -237,12 +265,14 @@ public class ManageController {
 		return service.updateMemberManage(mvo, isshow);
 	}
 
+	// 회원관리 회원 삭제
 	@ResponseBody
 	@PostMapping("/removemember")
 	public boolean removeMember(int userNo, HttpSession session, HttpServletRequest request) throws RuntimeException {
 		return service.removeMemberManage(userNo);
 	}
 
+	// 회원관리 회원 추가
 	@ResponseBody
 	@PostMapping("/addmember")
 	public List<MemberVO> addMember(MemberVO mvo, String isshow, HttpSession session, HttpServletRequest request)

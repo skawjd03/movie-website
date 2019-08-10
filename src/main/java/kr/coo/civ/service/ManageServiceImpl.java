@@ -148,21 +148,21 @@ public class ManageServiceImpl implements ManageService {
 
 	@Override
 	public int uploadMovie(MultipartFile[] imageFiles, MultipartFile[] videoFiles, MultipartFile wideposter,
-			MultipartFile poster, MovieVO mvo, String path) {
+			MultipartFile poster, MovieVO mvo, String downPath, String dbPath) {
 		int result = 1;
 
 		// 와이드랑 포스터 두개 저장하고 저장한 파일이름으로 db에 올린다. vo 랑 같이
 		String posterName = poster.getOriginalFilename().split("\\.")[0] + new Date().getTime() + '.'
 				+ poster.getOriginalFilename().split("\\.")[1];
-		File savePoster = new File(path, posterName);
+		File savePoster = new File(downPath, posterName);
 
 		String wideposterName = wideposter.getOriginalFilename().split("\\.")[0] + new Date().getTime() + '.'
 				+ wideposter.getOriginalFilename().split("\\.")[1];
-		File widesavePoster = new File(path, wideposterName);
+		File widesavePoster = new File(downPath, wideposterName);
 
-		mvo.setMoviePoster("/civ/resources/upload/" + posterName);
-		mvo.setMovieWideposter("/civ/resources/upload/" + wideposterName);
-
+		mvo.setMoviePoster(posterName);
+		mvo.setMovieWideposter(wideposterName);
+		
 		if (mapper.insertMovie(mvo) <= 0) {
 			result = -1;
 		}
@@ -172,8 +172,8 @@ public class ManageServiceImpl implements ManageService {
 		for (int i = 0; i < imageFiles.length; i++) {
 			imageNames[i] = imageFiles[i].getOriginalFilename().split("\\.")[0] + new Date().getTime() + '.'
 					+ imageFiles[i].getOriginalFilename().split("\\.")[1];
-			images[i] = new File(path, imageNames[i]);
-			if (mapper.insertMovieImg(mvo.getMovieCode(), "/civ/resources/upload/" + imageNames[i]) <= 0) {
+			images[i] = new File(downPath, imageNames[i]);
+			if (mapper.insertMovieImg(mvo.getMovieCode(), imageNames[i]) <= 0) {
 				result = -1;
 			}
 		}
@@ -183,8 +183,8 @@ public class ManageServiceImpl implements ManageService {
 		for (int i = 0; i < videoFiles.length; i++) {
 			videoNames[i] = videoFiles[i].getOriginalFilename().split("\\.")[0] + new Date().getTime() + '.'
 					+ videoFiles[i].getOriginalFilename().split("\\.")[1];
-			videos[i] = new File(path, videoNames[i]);
-			if (mapper.insertMovieVideo(mvo.getMovieCode(), "/civ/resources/upload/" + videoNames[i]) <= 0) {
+			videos[i] = new File(downPath, videoNames[i]);
+			if (mapper.insertMovieVideo(mvo.getMovieCode(), videoNames[i]) <= 0) {
 				result = -1;
 			}
 		}
@@ -291,7 +291,7 @@ public class ManageServiceImpl implements ManageService {
 		String posterName = billboardimg.getOriginalFilename().split("\\.")[0]+new Date().getTime()+'.'+billboardimg.getOriginalFilename().split("\\.")[1];
 		File saveBillboard = new File(path,posterName);
 		
-		int result = mapper.insertBillboard("/civ/resources/upload/"+posterName, link, finishDate);
+		int result = mapper.insertBillboard(posterName, link, finishDate);
 		
 		if(result > 0) {
 			try {

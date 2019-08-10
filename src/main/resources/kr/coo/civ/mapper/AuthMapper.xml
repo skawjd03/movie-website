@@ -3,7 +3,7 @@
 <mapper namespace="kr.coo.civ.mapper.AuthMapper">
 
 	<select id="selectNaverMember"
-		resultType="kr.coo.civ.vo.MemberVO">
+		resultType="MemberVO">
 		select user_nick userNick,user_phone userPhone,user_genre userGenre,user_no userNo,user_name userName,user_id userId,
 		user_birth userBirth,user_gender userGender,user_role userRole ,socialcheck,user_profile userProfile
 		from pacch_member
@@ -38,11 +38,11 @@
 	</insert>
 
 	<select id="selectIdCheck"
-		resultType="kr.coo.civ.vo.MemberVO">
+		resultType="MemberVO">
 		select nvl(count(*),0) count from pacch_member where user_id = #{userId}
 	</select>
 
-	<insert id="insertJoinUser" parameterType="kr.coo.civ.vo.MemberVO">
+	<insert id="insertJoinUser" parameterType="MemberVO">
 		insert into PACCH_MEMBER
 		VALUES(pacch_member_seq.nextval,#{userName},#{userId},#{userPassword},#{userBirth},#{userPhone},sysdate,
 		<choose>
@@ -61,7 +61,7 @@
 		</selectKey>
 	</insert>
 	
-	<select id="selectMember" resultType="kr.coo.civ.vo.MemberVO">
+	<select id="selectMember" resultType="MemberVO">
 		select user_nick userNick,user_phone userPhone,user_genre userGenre,user_no userNo,user_name userName,user_id userId,user_birth userBirth,user_gender userGender,user_role userRole,user_profile userProfile from pacch_member where user_id = #{userId} and user_password = #{userPassword} and isshow != 'N' 
 	</select>
 

@@ -21,7 +21,7 @@ public interface ManageService {
 	public int upSchedule(ScheduleVO schedule, String sd);
 	public int removeSchedule(String scheduleDate, String scheduleStart, String scheduleScreen);
 	public List<ScheduleWithMovieVO> getSeatStatus(String scheduleDate);
-	public int uploadMovie(MultipartFile[] imageFiles, MultipartFile[] videoFiles, MultipartFile wideposter,MultipartFile poster, MovieVO mvo, String path);
+	public int uploadMovie(MultipartFile[] imageFiles, MultipartFile[] videoFiles, MultipartFile wideposter,MultipartFile poster, MovieVO mvo, String downPath,String dbPath);
 	public List<MovieVO> getMovieManageList(int pageNum);
 	public MovieVO changeMovieIsshow(MovieVO mvo);
 	public int changeTotalView(MovieVO mvo);

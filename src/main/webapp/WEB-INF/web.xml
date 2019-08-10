@@ -9,6 +9,17 @@
 		<param-value>/WEB-INF/spring/root-context.xml</param-value>
 	</context-param>
 	
+	<context-param>
+		<param-name>imagePath</param-name>
+		<param-value>/resources/img/</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>uploadPath</param-name>
+		<param-value>/resources/upload/</param-value>
+	</context-param>
+	
+	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -30,9 +41,9 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 		<multipart-config>
-			<max-file-size>31457280</max-file-size>
+			<max-file-size>52428800</max-file-size>
 			<max-request-size>104857600</max-request-size>
-			<file-size-threshold>31457280</file-size-threshold>
+			<file-size-threshold>0</file-size-threshold>
 		</multipart-config>
 	</servlet>
 		

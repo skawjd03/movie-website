@@ -593,7 +593,7 @@
 													<div class="w3-container movieLinkBox">
 														<a
 															href="/civ/movie/moviedetailpage2?movieCode=${dList.movieCode}"><button>상세보기</button></a>
-														<a href="/civ/payment/reserve"><button>빠른예매</button></a>
+														<a href="/civ/payment/reserve?movieCode=${dList.movieCode}"><button>빠른예매</button></a>
 													</div>
 												</div>
 											</div>
@@ -613,7 +613,7 @@
 								<div class="w3-container movieLinkBox">
 									<a
 										href="/civ/movie/moviedetailpage2?movieCode=${RandomMovie.movieCode}"><button>상세보기</button></a>
-									<a href="/civ/payment/reserve"><button>빠른예매</button></a>
+									<a href="/civ/payment/reserve?movieCode=${RandomMovie.movieCode}"><button>빠른예매</button></a>
 								</div>
 							</div>
 						</div>
