@@ -12,13 +12,13 @@
 		order by schedule_screen,schedule_start
 	</select>
 
-	<select id="selectMovieNames" resultType="kr.coo.civ.vo.MovieVO">
+	<select id="selectMovieNames" resultType="MovieVO">
 		select movie_code
 		movieCode,movie_name movieName from
 		pacch_movie where isshow!='N'
 	</select>
 	<select id="selectMovieDetailInfo"
-		resultType="kr.coo.civ.vo.MovieVO">
+		resultType="MovieVO">
 		select movie_code movieCode, movie_name movieName,
 		movie_nation movieNation,
 		movie_poster moviePoster, movie_story
@@ -47,35 +47,35 @@
 	</delete>
 
 
-	<resultMap type="kr.coo.civ.vo.dto.ScheduleWithMovieVO"
+	<resultMap type="ScheduleWithMovieVO"
 		id="selectScheduleMovie">
 		<association property="schedule"
-			javaType="kr.coo.civ.vo.ScheduleVO">
+			javaType="ScheduleVO">
 			<result column="schedule_date" property="scheduleDate" />
 			<result column="schedule_screen" property="scheduleScreen" />
 			<result column="schedule_start" property="scheduleStart" />
 			<result column="schedule_Finish" property="scheduleFinish" />
 		</association>
 		<association property="movie"
-			javaType="kr.coo.civ.vo.MovieVO">
+			javaType="MovieVO">
 			<result column="movie_name" property="movieName" />
 		</association>
 	</resultMap>
 
-	<resultMap type="kr.coo.civ.vo.dto.ScheduleWithMovieVO"
+	<resultMap type="ScheduleWithMovieVO"
 		id="selectseatstatus">
 		<association property="schedule"
-			javaType="kr.coo.civ.vo.ScheduleVO">
+			javaType="ScheduleVO">
 			<result column="schedule_screen" property="scheduleScreen" />
 			<result column="seat" property="seat" />
 		</association>
 		<association property="movie"
-			javaType="kr.coo.civ.vo.MovieVO">
+			javaType="MovieVO">
 			<result column="movie_name" property="movieName" />
 		</association>
 	</resultMap>
 
-	<resultMap type="kr.coo.civ.vo.MovieVO" id="manageList">
+	<resultMap type="MovieVO" id="manageList">
 		<id column="movie_code" property="movieCode" />
 		<result column="movie_poster" property="moviePoster" />
 		<result column="movie_name" property="movieName" />
@@ -140,7 +140,7 @@
 	</select>
 
 	<update id="updateMovieIsshow"
-		parameterType="kr.coo.civ.vo.MovieVO">
+		parameterType="MovieVO">
 		<selectKey keyProperty="isshow" resultType="string"
 			order="BEFORE">
 			select isshow from pacch_movie where movie_code = #{movieCode}
@@ -163,8 +163,8 @@
 	</update>
 
 	<select id="selectServiceList"
-		parameterType="kr.coo.civ.vo.domain.SearchInfo"
-		resultType="kr.coo.civ.vo.ServiceVO">
+		parameterType="SearchInfo"
+		resultType="ServiceVO">
 		select service_no serviceNo,user_no userNo,service_kindof
 		serviceKindof,service_title serviceTitle,
 		to_char(service_date,'yyyy/MM/dd hh24:mi') serviceDate,reply_check
@@ -193,7 +193,7 @@
 		i.service_no
 	</select>
 
-	<resultMap id="serviceInfo" type="kr.coo.civ.vo.dto.ServiceWithImg">
+	<resultMap id="serviceInfo" type="ServiceWithImg">
 		<id column="serviceNo" property="serviceNo" />
 		<result column="serviceTitle" property="serviceTitle" />
 		<result column="serviceContent" property="serviceContent" />
@@ -201,7 +201,7 @@
 		<collection property="imgPath" resultMap="serviceImg"></collection>
 	</resultMap>
 
-	<resultMap type="kr.coo.civ.vo.ServiceImgVO" id="serviceImg">
+	<resultMap type="ServiceImgVO" id="serviceImg">
 		<result column="serviceimgPath" property="serviceimgPath" />
 	</resultMap>
 
@@ -326,7 +326,7 @@
 		#{mvo.userPhone},sysdate,null,#{mvo.userGender},#{isshow},'N',#{mvo.userNick},null)
 	</insert>
 
-	<resultMap type="kr.coo.civ.vo.MemberVO"
+	<resultMap type="MemberVO"
 		id="MemberManageList">
 		<id column="user_no" property="userNo" />
 		<result column="user_name" property="userName" />

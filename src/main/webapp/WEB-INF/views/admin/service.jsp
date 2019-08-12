@@ -75,7 +75,7 @@
 							<textarea id="serviceContent" disabled >
                             </textarea>
 						</div>
-						<div>
+						<div style="display:flex;">
 							<div class="imgBox">
 								<img
 									onclick="document.getElementById('id01').style.display='block'"
@@ -121,13 +121,69 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
 		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 		crossorigin="anonymous"></script>
-	<script src="/civ/resources/js/servicepage.js"></script>
+	<script src="/civ/resources/js/servicepage.js?after"></script>
 	<script>
 		$('.linkList li').each(function(){
 	    	if($(this).html()=='문의답변'){
 	    		$(this).attr('class','w3-button cus-btn btn-active');
 	    	}
 	    });
+
+		var webSocket = new WebSocket("ws://192.168.219.102/civ/servicesocket/");
+		webSocket.onopen = function(message) {
+		};
+		
+		webSocket.onclose = function(message) {
+			webSocket.close();
+		};
+		
+		webSocket.onerror = function(message) {
+		};
+		
+		webSocket.onmessage = function(message) {
+			var jsonData = JSON.parse(message.data);
+			$('tbody').prepend(
+					'<tr class="w3-hover-light-blue" scCode="'
+					+ jsonData.s_no + '"><td>' + jsonData.s_no
+					+ '</td><td>' + jsonData.u_no + '</td><td>'
+					+ jsonData.s_kindof + '</td><td>'
+					+ jsonData.s_title + '</td><td>'
+					+ jsonData.s_dateStr + '</td><td class="replyCheck">N</td></tr>');
+			$('tr').click(
+					function(e) {
+						var scCode = $(this).attr('scCode');
+						selectedScCode = scCode;
+						$.ajax({
+							type : "get",
+							url : "/civ/admin/serviceinfo.json",
+							data : {
+								"serviceNo" : scCode
+							},
+							success : function(data) {
+								$('#serviceWriter').html('작성자 : ' + data.userNo);
+								$('#serviceTitle')
+										.html('제목 : ' + data.serviceTitle);
+								$('#serviceContent').val(data.serviceContent);
+									$('#imgBox1').attr('src','');
+									$('#imgBox2').attr('src','');
+									$('#imgBox3').attr('src','');
+									for (var i = 0; i < 3; i++) {
+										if(data.imgPath[i] == null){
+											$('#imgBox' + (i + 1)).hide();
+										}else{
+											$('#imgBox' + (i + 1)).show();
+											$('#imgBox' + (i + 1)).attr('src','/civ/resources/upload/'+data.imgPath[i].serviceimgPath);
+											$('#imgBox' + (i + 1)).click(
+													function(e) {
+														$('#wideImg').attr('src',
+																$(this).attr('src'));
+													});
+										}
+									}
+							}
+						});
+					});
+		};
 	</script>
 </body>
 

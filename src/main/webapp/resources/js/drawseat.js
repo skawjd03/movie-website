@@ -17,6 +17,9 @@ var check_seat = [];
 	$().ready(() => {
         // plus
     	$('#ap').on('click',function(){
+    		if(soo >= 8){
+    			return;
+    		}
         	var a = adult +1;
         	adult = a;
         	$('#aval').text(a);
@@ -25,6 +28,9 @@ var check_seat = [];
         	changeForm();
         });
         $('#cp').on('click',function(){
+        	if(soo >= 8){
+    			return;
+    		}
         	var c = children +1;
         	children = c;
         	$('#cval').text(c);
@@ -33,6 +39,9 @@ var check_seat = [];
         	changeForm();
         });
         $('#dp').on('click',function(){
+        	if(soo >= 8){
+    			return;
+    		}
         	var d = disorder +1;
         	disorder = d;
         	$('#dval').text(d);

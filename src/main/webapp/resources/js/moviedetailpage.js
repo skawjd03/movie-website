@@ -34,14 +34,18 @@ function nowPageCss(pagenum){
 				for(var i = 0; i < data.commentvo.length; i++){
 					var comment = data.commentvo[i];
 					var div = $('<div class="commentBox"></div>');
-					div.append('<div class="profileImgBox"><img class="profileImg" src="'+comment.member.userProfile+'"></div>');
+					if(comment.member == null){
+						div.append('<div class="profileImgBox"><img class="profileImg" src="/civ/"></div>');
+					}else{						
+						div.append('<div class="profileImgBox"><img class="profileImg" src="/civ/resources/profile/'+comment.member.userProfile+'"></div>');
+					}
 					var idstar = $('<div class="commentIdStar"></div>');
-					idstar.append('<span class="commentId">'+comment.comment.userId+'</span>');
+					idstar.append('<span class="commentId">'+comment.member.userNick+'</span>');
 					idstar.append('<div><span class="star-rating"><span style="width: '+comment.comment.commentStar*2*100/10+'%;"></span></span></div>');
 					idstar.append('<p style="font-size: 12px;color: #666;">'+comment.comment.commentDate+'</p>');
 					div.append(idstar);
 					div.append('<div style="width: 600px; margin-left: 50px;"><p style="margin-top: 20px;">'+comment.comment.commentContent+'</p></div>');
-					div.append((comment.comment.commentcheck == null ? '<div style="margin-top: 40px;">' :'<div style="margin-top: 40px; color:red">') +'<a class="thumbsBtn thumb_'+comment.comment.commentNo+'" onclick="javascript:thumbsup('+comment.comment.commentNo+')"><i class="far fa-thumbs-up fa-1x"></i> 추천 <p>'+comment.comment.commentLikes+'</p></a></div>');
+					div.append((comment.comment.commentcheck == null ? '<div style="margin-top: 40px; width: 90px;">' :'<div style="margin-top: 40px; color:red; width: 90px;">') +'<a class="thumbsBtn thumb_'+comment.comment.commentNo+'" onclick="javascript:thumbsup('+comment.comment.commentNo+')"><i class="far fa-thumbs-up fa-1x"></i> 추천 <p>'+comment.comment.commentLikes+'</p></a></div>');
 					$('.commentListBox').append(div);
 				}
 				$('.pagination').html('');

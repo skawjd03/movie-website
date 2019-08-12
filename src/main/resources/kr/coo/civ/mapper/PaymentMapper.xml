@@ -77,13 +77,17 @@
 
 
 	<select id="selectScheduleSeat" resultMap="seatInfo">
-		select schedule_code
-		scheduleCode,schedule_date scheduleDate,schedule_screen
-		scheduleScreen,to_char(schedule_start,'hh24:mi')||'~'||to_char(schedule_finish,'hh24:mi')
-		showtime,seat,movie_name,movie_poster,movie_age,movie_genre,movie_runtime
-		from pacch_schedule ps join pacch_movie pm on ps.movie_code =
-		pm.movie_code where schedule_code = #{scheduleNo}
+		select 
+			schedule_code scheduleCode,schedule_date scheduleDate,schedule_screen scheduleScreen,
+			to_char(schedule_start,'hh24:mi')||'~'||to_char(schedule_finish,'hh24:mi')
+			showtime,seat,movie_name,movie_poster,movie_age,movie_genre,movie_runtime
+		from 
+			pacch_schedule ps join pacch_movie pm 
+			on ps.movie_code = pm.movie_code 
+		where 
+			schedule_code = #{scheduleNo}
 	</select>
+	
 	<select id="selectSeat" resultType="String">
 		select seat from
 		pacch_schedule where schedule_code = #{scheduleNo}

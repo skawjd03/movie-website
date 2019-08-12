@@ -54,7 +54,7 @@
 			</otherwise>
 		</choose>
 
-		,#{userGender},'Y','N',#{userNick},null,'http://image2.megabox.co.kr/mop/home/user/profile_m.png')
+		,#{userGender},'Y','N',#{userNick},null,'null.png')
 		<selectKey keyProperty="userNo" resultType="int"
 			order="AFTER">
 			select user_no as userNo from PACCH_MEMBER where user_id = #{userId}

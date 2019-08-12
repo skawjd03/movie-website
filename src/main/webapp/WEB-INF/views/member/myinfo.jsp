@@ -335,7 +335,7 @@
 								style="border-top: 2px solid #333333; height: 311px;">
 								<div class="w3-col s5"
 									style="height: 105%; padding: 30px; border-right: 1px solid #333333;">
-									<img src="${myInfo.member.userProfile}"
+									<img src="${initParam['viewProfilePath']}${myInfo.member.userProfile}"
 										class="w3-circle profileImg" alt="프로필 사진"
 										style="width: 100%; height: 100%;"> <a><label
 										for="profileImgFile"><i class="fas fa-camera"></i></label><input
@@ -412,16 +412,16 @@
 											<c:choose>
 												<c:when test="${myInfo.discountName == null}">
 													<a href="/civ/member/membership"><img
-														src="/civ/resources/img/nocard.png"></a>
+														src="${initParam['viewImagePath']}nocard.png"></a>
 												</c:when>
 												<c:when test="${myInfo.discountName == 'GOLD'}">
-													<img src="/civ/resources/img/card_vvip.png">
+													<img src="${initParam['viewImagePath']}card_vvip.png">
 												</c:when>
 												<c:when test="${myInfo.discountName == 'SILVER'}">
-													<img src="/civ/resources/img/card_vip.png">
+													<img src="${initParam['viewImagePath']}card_vip.png">
 												</c:when>
 												<c:otherwise>
-													<img src="/civ/resources/img/card.png">
+													<img src="${initParam['viewImagePath']}card.png">
 												</c:otherwise>
 											</c:choose>
 										</div>
@@ -588,7 +588,7 @@
 															class="far fa-times-circle fa-2x"></i></a>
 													</div>
 													<div>
-														<img src="${dList.moviePoster}" style="width: 100%;">
+														<img src="${initParam['viewUploadPath']}${dList.moviePoster}" style="width: 100%;">
 													</div>
 													<div class="w3-container movieLinkBox">
 														<a
@@ -609,7 +609,7 @@
 						</div>
 						<div style="text-align: center; padding-top: 30px;">
 							<div class="w3-card" style="width: 200px;">
-								<img src="${RandomMovie.moviePoster}" style="width: 100%;">
+								<img src="${initParam['viewUploadPath']}${RandomMovie.moviePoster}" style="width: 100%;">
 								<div class="w3-container movieLinkBox">
 									<a
 										href="/civ/movie/moviedetailpage2?movieCode=${RandomMovie.movieCode}"><button>상세보기</button></a>

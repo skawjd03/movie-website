@@ -119,12 +119,15 @@
 		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 		crossorigin="anonymous"></script>
 	<script src="/civ/resources/js/movieupdatepage.js?after"></script>
+	
 	<script type="text/javascript">
         $('.linkList li').each(function(){
 	    	if($(this).html()=='영화 등록'){
 	    		$(this).attr('class','w3-button cus-btn btn-active');
 	    	}
 	    });
+        
+        
     </script>
 </body>
 

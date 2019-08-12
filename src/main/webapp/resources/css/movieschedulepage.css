@@ -117,7 +117,7 @@
 	display: inline-block;
 	height: 20px;
 	overflow: hidden;
-	background: url('/controller/resources/img/star.png') no-repeat;
+	background: url('/civ/resources/img/star.png') no-repeat;
 	background-size: 100px;
 }
 

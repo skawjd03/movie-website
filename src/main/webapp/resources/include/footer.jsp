@@ -16,7 +16,7 @@ body {
 }
 
 .footer {
-	width: 1100px;
+	width: 1200px;
 	display: inline-block;
 	color: white;
 	height: 200px;
@@ -48,6 +48,7 @@ body {
 
 .footText>p {
 	margin: 3px;
+	display: block;
 }
 </style>
 <div class="w3-container footDiv" style="margin-top: 50px;">

@@ -9,12 +9,12 @@ import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
-import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
+
 
 import lombok.extern.log4j.Log4j;
 
-@ServerEndpoint("/servicesocket")
+@ServerEndpoint("/servicesocket/")
 @Log4j
 public class ServiceController {
 

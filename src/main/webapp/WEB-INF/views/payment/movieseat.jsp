@@ -86,7 +86,7 @@ body {
 					<div
 						style="display: inline-block; border-right: 1px solid rgb(214, 208, 208); width: 300px;">
 						<div class="movie_postBox">
-							<img src="${mInfo.movie.moviePoster}" style="width: 100%;" />
+							<img src="${initParam['viewUploadPath']}${mInfo.movie.moviePoster}" style="width: 100%;" />
 						</div>
 						<div class="movie_postInfo">
 							<div

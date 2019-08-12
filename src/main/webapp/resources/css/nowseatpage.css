@@ -13,7 +13,7 @@
 	border-radius: 3%;
 	padding: 10px;
 	text-align: center;
-	background-image: url('/controller/resources/img/seatbackground.png');
+	background-image: url('/civ/resources/img/seatbackground.png');
 	background-size: 500px 320px;
 	padding-top: 30px;
 }

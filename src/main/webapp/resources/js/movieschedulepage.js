@@ -163,7 +163,7 @@ $('.movieListInfo')
 								url : "/civ/admin/getMovieDetail.json",
 								success : function(data) {
 									$('.moviePoster').html(
-											'<img id="showImg" src="'
+											'<img id="showImg" src="/civ/resources/upload/'
 													+ data.moviePoster + '">');
 									$('#detailName').html(data.movieName);
 									var age = null;

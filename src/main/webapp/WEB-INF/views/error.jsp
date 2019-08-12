@@ -31,7 +31,7 @@
                 <p>${errorMsg}</p>
             </div>
             <div>
-                <img src="/civ/resources/img/에러.png" style="width: 60%;"/>
+                <img src="${initParam['viewImagePath']}에러.png" style="width: 60%;"/>
             </div>
             <div style="text-align: center;">
                 <input id="historyBack" type="button" value="이전페이지로 이동"><input id="mainGo" type="button" value="메인페이지로 이동">

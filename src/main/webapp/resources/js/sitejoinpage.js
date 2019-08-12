@@ -82,7 +82,7 @@ var idcheck = false;
          
          $.ajax({
             type:'get',
-            url:'/civ/auth/phonecheck',
+            url:'/civ/auth/phonecheck.json',
             data:{'phone':$('#userphone').val()},
             success:function(data){
                if(data == true){

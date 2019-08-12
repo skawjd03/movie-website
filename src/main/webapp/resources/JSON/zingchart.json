@@ -22,7 +22,7 @@
                           "font-color": "#707d94"
                       },
                       "scale-y": {
-                          "values": "0:300000:80000",
+                          "values": "0:500000:150000",
                           "max-ticks": 4,
                           "max-items": 4,
                           "line-color": "none",
@@ -292,7 +292,7 @@
                           "margin":"50px 25px 70px 46px"
                       },
                       "scale-y":{
-                          "values":"0:5000:1000",
+                          "values":"0:100:15",
                           "line-color":"none",
                           "guide":{
                               "line-style":"solid",

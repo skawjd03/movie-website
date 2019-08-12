@@ -211,7 +211,7 @@
 	</select>
 	<insert id="insertServiceComment">
 		insert into pacch_servicecomment
-		values(pacch_servicecomment_seq.nextval,#{serviceNo},sysdate,#{serviceComment},'GM_ZARAGUNG')
+		values(pacch_servicecomment_seq.nextval,#{serviceNo},sysdate,#{commentContent},'GM_ZARAGUNG')
 	</insert>
 
 	<update id="updateServiceReplyCheck">

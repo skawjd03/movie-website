@@ -32,6 +32,7 @@ body, html {
 	height: 795px;
 	margin-left: auto;
 	margin-right: auto;
+	margin-bottom:200px;;
 }
 
 .select_info {
@@ -240,7 +241,7 @@ zara{
 		<div class="select_info">
 			<div>
 				<div class="m_img">
-					<img class="m_img" src="${mInfo.movie.moviePoster}" alt="">
+					<img class="m_img" src="${initParam['viewUploadPath']}${mInfo.movie.moviePoster}" alt="">
 				</div>
 				<div style="display: inline-block; width: 600px; padding: 30px;">
 					<div class="m_name">
@@ -342,7 +343,6 @@ zara{
 			</div>
 		</div>
 	</div>
-	<div style="height: 40px;"></div>
 	<form id="form" action="/reserve/payokGo.do" method="post">
 		<input id="scheduleCode" name="scheduleCode" type="hidden" value="${pInfo.scheduleCode}">
 		<input id="checkSeat" name="paySeat" type="hidden">
@@ -350,6 +350,7 @@ zara{
 		<input id="paid_amount" name="payPrice" type="hidden">
 		<input id="pay_method" name="payMethod" type="hidden">
 	</form>
+	
 	<%@include file="/resources/include/footer.jsp"%>
 	<script integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 		crossorigin="anonymous"
@@ -395,14 +396,6 @@ zara{
         	                        	if(data=="failed"){
         	                        		alert('결제 실패');
         	                        	}else{
-        	                        		var webSocket = new WebSocket("ws://192.168.219.101/civ/websocket/${pInfo.scheduleCode}");
-        	                        		webSocket.onopen = () => webSocket.send(data);
-        	                        		webSocket.onclose = function(message){
-        	                        	    	disconnect();
-        	                        	    };
-        	                        	    function disconnect(){
-        	                        	    	webSocket.close();
-        	                        	    }
         	                        	    location.href="/civ/payment/payok";
         	                        	}
         	                        }
@@ -424,7 +417,8 @@ zara{
             	url:"/civ/payment/checkpoint.json",
             	data:{'point':point,'m_id':mid},
             	success:function(data){
-					setMoneyData(data);
+            		setMoneyData(data.discountMoney);
+					mid = data.mId;
                 }
             });
         }
@@ -435,7 +429,8 @@ zara{
             	url:"/civ/payment/checkpoint.json",
             	data:{'point':$(this).val(),'m_id':mid},
             	success:function(data){
-					setMoneyData(data);
+					setMoneyData(data.discountMoney);
+					mid = data.mId;
                 }
             });
         });

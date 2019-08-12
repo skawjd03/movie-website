@@ -70,7 +70,7 @@
 			<c:forEach var="img" items="${serviceInfo.imgList }">				
 				<div class="col-sm-4 imgBox">
 					<a class="expansionImg"><img
-						src="${img.serviceimgPath}" style="height: 100%;"></a>
+						src="${initParam['viewUploadPath']}${img.serviceimgPath}" style="height: 100%;"></a>
 				</div>
 			</c:forEach>
 		</div>

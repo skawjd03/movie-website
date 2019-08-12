@@ -1,6 +1,7 @@
 package kr.coo.civ.service;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.coo.civ.mapper.MemberMapper;
+import kr.coo.civ.util.FileUtil;
 import kr.coo.civ.vo.MemberDibsVO;
 import kr.coo.civ.vo.MemberShipVO;
 import kr.coo.civ.vo.MemberVO;
@@ -25,6 +27,8 @@ public class MemberServiceImpl implements MemberService {
 
 	@Setter(onMethod_=@Autowired)
 	private MemberMapper mapper;
+	
+	private String[] imgCheck = { ".JPG", ".jpg",".PNG",".png" };
 	
 	@Override
 	@Transactional
@@ -87,13 +91,18 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int changeProfile(MultipartFile proFile, String path,int userNo,MemberVO user) {
-		String profileName = proFile.getOriginalFilename().split("\\.")[0]+new Date().getTime()+"."+ proFile.getOriginalFilename().split("\\.")[1];
+		String profileName = proFile.getOriginalFilename();
+		int strIndex = profileName.lastIndexOf(".");
+		String ext = profileName.substring(strIndex);
+		Arrays.sort(imgCheck);
+		if(Arrays.binarySearch(imgCheck, ext) <= 0) return -1;
+		profileName = FileUtil.rename(path, profileName);
 		File saveProfile = new File(path,profileName);
 		int result = 0;
-		if(mapper.updateUserProfile("/civ/resources/profile/"+profileName, userNo) > 0) {
+		if(mapper.updateUserProfile(profileName, userNo) > 0) {
 			try {	
 				proFile.transferTo(saveProfile);
-				user.setUserProfile("/civ/resources/profile/"+profileName);
+				user.setUserProfile(profileName);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

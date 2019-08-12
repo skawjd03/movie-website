@@ -34,7 +34,7 @@
 		(select user_No userNo,membg_price,discount_percent,discount_name from PACCH_MEMBERSHIPGRADE p join PACCH_MEMBERSHIPDISCOUNT d on p.DISCOUNT_CODE = d.DISCOUNT_CODE) g on i.user_no = g.userNo) c on c.userNo = m.user_no where m.user_no = #{userNo}
 	</select>
 	
-	<resultMap type="kr.coo.civ.vo.MemberShipVO" id="myinfo">
+	<resultMap type="MemberShipVO" id="myinfo">
 		<id column="card_no" property="cardNo"/>
 		<result column="card_point" property="cardPoint"/>
 		<result column="membg_price" property="membgPrice"/>
@@ -44,7 +44,7 @@
 		</association>
 	</resultMap>
 	
-	<resultMap type="kr.coo.civ.vo.MemberVO" id="myinfoMember">
+	<resultMap type="MemberVO" id="myinfoMember">
 		<id column="user_no" property="userNo"/>
 		<result column="user_name" property="userName"/>
 		<result column="user_id" property="userId"/>
@@ -56,7 +56,7 @@
 		<result column="user_Profile" property="userProfile"/>		
 	</resultMap>
 		
-	<select id="selectServiceList" resultType="kr.coo.civ.vo.ServiceVO">
+	<select id="selectServiceList" resultType="ServiceVO">
 		select service_no serviceNo,to_char(service_date,'yyyy/MM/dd') serviceDate,service_title serviceTitle,service_content serviceContent,service_kindof serviceKindof,reply_check replyCheck from pacch_service where user_no = #{userNo} and isshow != 'N'
 	</select>
 	
@@ -64,31 +64,31 @@
 		select us.service_no serviceNo,service_kindof serviceKindof,service_title serviceTitle,to_char(service_date,'yyyy/MM/dd') serviceDate,service_content serviceContent,comment_writer commentWriter,to_char(comment_date,'yyyy/MM/dd') commentDate, comment_content commentContent from (select * from pacch_service where service_no = #{serviceNo}) us join pacch_servicecomment c on us.service_no = c.service_no
 	</select>
 	
-	<select id="selectServiceImg" resultType="kr.coo.civ.vo.ServiceImgVO">
+	<select id="selectServiceImg" resultType="ServiceImgVO">
 		select serviceimg_Path serviceimgPath from pacch_serviceimg where service_no = #{serviceNo}
 	</select>
 	
-	<resultMap type="kr.coo.civ.vo.dto.ServiceWithScommentWithSImgDTO" id="serviceInfo">
-		<association property="service" javaType="kr.coo.civ.vo.ServiceVO">
+	<resultMap type="ServiceWithScommentWithSImgDTO" id="serviceInfo">
+		<association property="service" javaType="ServiceVO">
 			<id column="serviceNo" property="serviceNo"/>
 			<result column="serviceKindof" property="serviceKindof"/>
 			<result column="serviceTitle" property="serviceTitle"/>
 			<result column="serviceContent" property="serviceContent"/>
 			<result column="serviceDate" property="serviceDate"/>
 		</association>
-		<association property="comment" javaType="kr.coo.civ.vo.ServiceCommentVO">
+		<association property="comment" javaType="ServiceCommentVO">
 			<result column="commentWriter" property="commentWriter"/>
 			<result column="commentDate" property="commentDate"/>
 			<result column="commentContent" property="commentContent"/>
 		</association>
-		<collection property="imgList" column="serviceNo" javaType="ArrayList" ofType="kr.coo.civ.vo.ServiceImgVO" select="selectServiceImg"/>
+		<collection property="imgList" column="serviceNo" javaType="ArrayList" ofType="ServiceImgVO" select="selectServiceImg"/>
 	</resultMap>
 	
-	<resultMap type="kr.coo.civ.vo.dto.PaymentWithMovieDTO" id="mypayment">
-		<association property="movie" javaType="kr.coo.civ.vo.MovieVO">
+	<resultMap type="PaymentWithMovieDTO" id="mypayment">
+		<association property="movie" javaType="MovieVO">
 			<result column="movieName" property="movieName"/>
 		</association>
-		<association property="payment" javaType="kr.coo.civ.vo.PaymentVO">
+		<association property="payment" javaType="PaymentVO">
 			<result column="payNo" property="payNo"/>		
 			<result column="paySeat" property="paySeat"/>		
 			<result column="payPrice" property="payPrice"/>		
@@ -146,7 +146,7 @@
 	
 	
 	
-	<select id="selectMyDibsList" resultType="kr.coo.civ.vo.MemberDibsVO">
+	<select id="selectMyDibsList" resultType="MemberDibsVO">
 		select user_no userNo,dibs_no dibsNo,dibs_moviename dibsMovieName,m.* from 
 		pacch_userdibs inner join (select movie_code movieCode,movie_poster moviePoster from pacch_movie) m on
 		 dibs_moviecode = movieCode where user_no = #{userNo}
@@ -156,7 +156,7 @@
 		delete from pacch_userDibs where dibs_no = #{dibsNo}
 	</delete>
 	
-	<select id="selectRandomMovie" resultType="kr.coo.civ.vo.MovieVO">
+	<select id="selectRandomMovie" resultType="MovieVO">
 		select * from(select rownum,movie_name movieName,movie_code movieCode,movie_poster moviePoster from pacch_movie where isshow = 'Y' order by DBMS_RANDOM.value) where rownum = 1
 	</select>
 </mapper>

@@ -34,7 +34,7 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/admin/*")
 @Log4j
 public class ManageController {
-
+	
 	@Setter(onMethod_ = @Autowired)
 	private ManageService service;
 
@@ -95,8 +95,6 @@ public class ManageController {
 		return "/admin/service";
 	}
 	
-	
-	
 	// ################# 기능 요청 #################
 	// 날짜별 스케줄 리스트 반환
 	@GetMapping("/getScheduleList")
@@ -144,30 +142,9 @@ public class ManageController {
 	@PostMapping("/movieupload")
 	public String updateMovieData(MultipartFile[] imageFiles, MultipartFile[] videoFiles, MultipartFile wideposter,
 			MultipartFile poster, Model model, MovieVO mvo, HttpSession session) {
-		for(MultipartFile file : imageFiles) {
-			String[] tmp = file.getOriginalFilename().split("\\.");
-			if(Arrays.binarySearch(imgCheck, tmp[tmp.length-1]) <= 0) {
-				return "redirect:/common/exception";
-			}
-		}
-		
-		for(MultipartFile file : videoFiles) {
-			String[] tmp = file.getOriginalFilename().split("\\.");
-			if(Arrays.binarySearch(videoCheck, tmp[tmp.length-1]) <= 0) {
-				return "redirect:/common/exception";
-			}
-		}
-		String[] extension = wideposter.getOriginalFilename().split("\\.");
-		if(Arrays.binarySearch(imgCheck,extension[extension.length-1]) <= 0) {
-			return "redirect:/common/exception";
-		}
-		extension = poster.getOriginalFilename().split("\\.");
-		if(Arrays.binarySearch(imgCheck, extension[extension.length-1]) <= 0) {
-			return "redirect:/common/exception";
-		}
 		
 		int result = service.uploadMovie(imageFiles, videoFiles, wideposter, poster, mvo,
-				context.getRealPath(context.getInitParameter("uploadPath")),context.getRealPath(context.getInitParameter("imagePath")));
+				context.getRealPath(context.getInitParameter("uploadPath")));
 		if (result == 1) {
 			return "/admin/movieschedule";
 		} else {
@@ -230,22 +207,10 @@ public class ManageController {
 	// 메인페이지에서 보일 전광판 업로드
 	@PostMapping("/uploadbillboard")
 	public String uploardBillboard(MultipartFile billboardimg, String link, String finishDate, HttpSession session) {
-		if (billboardimg.getOriginalFilename().split("\\.")[1].equals("png")
-				|| billboardimg.getOriginalFilename().split("\\.")[1].equals("PNG")
-				|| billboardimg.getOriginalFilename().split("\\.")[1].equals("jpg")
-				|| billboardimg.getOriginalFilename().split("\\.")[1].equals("JPG")
-				|| billboardimg.getOriginalFilename().split("\\.")[1].equals("gif")
-				|| billboardimg.getOriginalFilename().split("\\.")[1].equals("GIF")) {
-			String path = context.getRealPath("\\resources\\upload");
-			String imageName = billboardimg.getOriginalFilename().split("\\.")[0] + new Date().getTime() + '.'
-					+ billboardimg.getOriginalFilename().split("\\.")[1];
-			if (service.uploadBillboard(billboardimg, link, finishDate, path) != 1) {
-				return "redirect:/common/throwable";
-			}
-		} else {
+		String path = context.getRealPath(context.getInitParameter("uploadPath"));
+		if (service.uploadBillboard(billboardimg, link, finishDate, path) != 1) {
 			return "redirect:/common/throwable";
 		}
-
 		return "redirect:/main";
 	}
 

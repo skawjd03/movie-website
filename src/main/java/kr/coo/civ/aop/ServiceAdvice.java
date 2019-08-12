@@ -22,12 +22,13 @@ import lombok.extern.log4j.Log4j;
 @Component
 public class ServiceAdvice {
 
-	@Pointcut("execution(* kr.coo.civ.service.ManageService*.upServiceComment(*)) && args(scvo)")
+	@Pointcut("execution(* kr.coo.civ.mapper.NoticeDAO.questionRegistor(*)) && args(scvo)")
 	public void pointService(ServiceCommentVO scvo) {
 	}
 
 	@AfterReturning(pointcut = "pointService(scvo)", returning = "returnValue")
 	public void sendService(ServiceCommentVO scvo, Object returnValue) {
+		System.out.println("여기로 왔습니다.");
 		if ((Integer) returnValue == 1) {
 			Gson g = new Gson();
 			System.out.println(g.toJson(scvo));

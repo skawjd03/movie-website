@@ -21,7 +21,7 @@
 	<%@include file="/resources/include/header.jsp"%>
 	<div class="theater_container">
 		<div class="theater_img">
-			<img src="/civ${initParam['imagePath']}theater.png"
+			<img src="${initParam['viewImagePath']}theater.png"
 				style="width: 100%; height: 100%;">
 		</div>
 		<div class="theater_nav">
@@ -68,7 +68,7 @@
 			</div>
 			<div id="map" style="width:100%;height:350px;"></div>
 			<div class="theater_dir_bus">
-				<img src="/civ/resources/img/bus.png"
+				<img src="${initParam['viewImagePath']}/bus.png"
 					style="width: 100%; height: 100%;">
 			</div>
 			<div class="theater_dir_umm">
@@ -87,7 +87,7 @@
 				<h3>편의시설</h3>
 			</div>
 			<div class="theater_fac_info">
-				<img src="/civ${initParam['imagePath']}fac_info.png"
+				<img src="${initParam['viewImagePath']}fac_info.png"
 					style="width: 100%; height: 100%;">
 			</div>
 		</div>

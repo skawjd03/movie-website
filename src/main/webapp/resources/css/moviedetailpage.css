@@ -236,6 +236,7 @@ h2 {
    padding: 30px 0px 30px 30px;
    display: flex;
    border-bottom: 1px solid #e1e1e1;
+   border-top: 1px solid #ddd;
 }
 
 .commentIdStar {
@@ -298,4 +299,7 @@ h2 {
 .videos {
    width: 100% !important;
    height: 100% !important;
+}
+.footDiv{
+	width:100% !important;
 }

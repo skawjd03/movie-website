@@ -6,7 +6,7 @@
 		<h1 class="movieDetailh1">영화 상세</h1>
 		<div class="movieDetailInfoBox">
 			<div class="movieDetailImgBox">
-				<img id="movieDetailImg" src="${ mddto.movievo.moviePoster}">
+				<img id="movieDetailImg" src="${initParam['viewUploadPath']}${ mddto.movievo.moviePoster}">
 			</div>
 			<div class="movieDetailContentsBox">
 				<div class="movieDetailTitle">
@@ -45,11 +45,7 @@
 					<br>
 					<br> 
 					<c:if test="${dibsCheck > 0}">
-<<<<<<< HEAD
-						<input type="button" id="dibBtn" class="w3-btn movieDibsBtn2" value="♥ 찜해제">	
-=======
-						<input type="button" id="dibBtn" class="w3-btn movieDibsBtn2" value="♥ 찜해제">						
->>>>>>> branch 'master' of https://github.com/zara9006/civmovieproject.git
+						<input type="button" id="dibBtn" class="w3-btn movieDibsBtn2" value="♥ 찜해제">
 					</c:if>
 					<c:if test="${dibsCheck == 0}">
 						<input type="button" id="dibBtn" class="w3-btn movieDibsBtn" value="♥ 찜하기">		
@@ -74,12 +70,12 @@
 						<video
 							poster="/civ/resources/upload/스파이더맨포스터1562655490045.jpg"
 							class="videos">
-							<source src="${mddto.movieVideo[0].trailerVideo}" />
+							<source src="${initParam['viewUploadPath']}${mddto.movieVideo[0].trailerVideo}" />
 						</video>
 					</div>
 					<c:forEach var="img" items="${mddto.movieImg}">
 						<div class="swiper-slide"
-							style="background-image: url('${img.imgStilcut}')"></div>
+							style="background-image: url('${initParam['viewUploadPath']}${img.imgStilcut}')"></div>
 					</c:forEach>
 				</div>
 			</div>
@@ -87,13 +83,13 @@
 				<div class="swiper-wrapper">
 					<div class="swiper-slide video">
 						<video
-							poster="${mddto.movievo.moviePoster}"
+							poster="${initParam['viewUploadPath']}${mddto.movievo.moviePoster}"
 							class="videos" controls>
-							<source src="${mddto.movieVideo[0].trailerVideo}" />
+							<source src="${initParam['viewUploadPath']}${mddto.movieVideo[0].trailerVideo}" />
 						</video>
 					</div>
 					<c:forEach var="img" items="${mddto.movieImg}" varStatus="len">
-						<div class="swiper-slide"style="background-image: url('${img.imgStilcut}')"></div>
+						<div class="swiper-slide"style="background-image: url('${initParam['viewUploadPath']}${img.imgStilcut}')"></div>
 					</c:forEach>
 				</div>
 				<div class="swiper-button-next"
@@ -110,11 +106,11 @@
 				<div class="profileImgBox">
 					<c:if test="${loginInfo.userProfile != null}">
 						<img class="profileImg"
-							src="${loginInfo.userProfile}">					
+							src="${initParam['viewProfilePath']}${loginInfo.userProfile}">					
 					</c:if>
 					<c:if test="${loginInfo.userProfile == null}">
 						<img class="profileImg"
-							src="http://image2.megabox.co.kr/mop/home/user/profile_m.png">					
+							src="${initParam['viewImagePath']}null.png">					
 					</c:if>
 				</div>
 				<div class="starChoiceBox">
@@ -146,10 +142,10 @@
 					<div class="commentBox">
 						<div class="profileImgBox">
 							<img class="profileImg"
-								src="${comment.member.userProfile}">
+								src="${initParam['viewProfilePath']}${comment.member.userProfile}">
 						</div>
 						<div class="commentIdStar">
-							<span class="commentId">${comment.comment.userId}</span>
+							<span class="commentId">${comment.member.userNick}</span>
 							<div>
 								<span class="star-rating"> <span
 									style="width: ${comment.comment.commentStar*2*100/10}%;"></span>
@@ -161,10 +157,10 @@
 							<p style="margin-top: 20px;">${comment.comment.commentContent }</p>
 						</div>
 						<c:if test="${comment.comment.commentcheck == null}">
-							<div style="margin-top: 40px;">
+							<div style="margin-top: 40px; width: 90px;">
 						</c:if>
 						<c:if test="${comment.comment.commentcheck != null}">
-							<div style="margin-top: 40px; color:red">
+							<div style="margin-top: 40px; color:red; width: 90px;">
 						</c:if>
 							<a class="thumbsBtn thumb_${comment.comment.commentNo}"
 								onclick="thumbsup(${comment.comment.commentNo})"><i
@@ -217,6 +213,4 @@
 		   		}
 		   	});
 		}
-		
-		
 	</script>

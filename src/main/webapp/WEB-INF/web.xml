@@ -15,8 +15,28 @@
 	</context-param>
 	
 	<context-param>
+		<param-name>profilePath</param-name>
+		<param-value>/resources/profile/</param-value>
+	</context-param>
+	
+	<context-param>
 		<param-name>uploadPath</param-name>
 		<param-value>/resources/upload/</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>viewImagePath</param-name>
+		<param-value>/civ/resources/img/</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>viewUploadPath</param-name>
+		<param-value>/civ/resources/upload/</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>viewProfilePath</param-name>
+		<param-value>/civ/resources/profile/</param-value>
 	</context-param>
 	
 	

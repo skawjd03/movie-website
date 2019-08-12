@@ -31,7 +31,7 @@ public class ServiceService {
 	/*
 	 * ���� ���� ���ε带 ó���� ���� �Լ�
 	 */
-	public ServiceImgDTO uploadProc(MultipartFile upfile, ServiceImgDTO serviceImgDTO,String downPath, String dbPath) { 
+	public ServiceImgDTO uploadProc(MultipartFile upfile, ServiceImgDTO serviceImgDTO,String downPath) { 
 		// ���� uploadProc() �����ε� �� ���´�.
 		
 		/*
@@ -79,14 +79,14 @@ public class ServiceService {
 	/*
 	 * ��Ƽ ���� ���ε带 ó���� ���� �Լ�
 	 */
-	public ServiceImgDTO[] uploadProc(MultipartFile[] upfile,String downPath,String dbPath) {
+	public ServiceImgDTO[] uploadProc(MultipartFile[] upfile,String downPath) {
 
 		ServiceImgDTO[] siDTO = new ServiceImgDTO[upfile.length];
 		
 		for(int i = 0 ; i < upfile.length ; i++ ) {
 			ServiceImgDTO serviceImgDTO = new ServiceImgDTO();
 			// �迭�� �ִ� ������ �ϳ��� ������ �۾��Ѵ�.
-			siDTO[i] = uploadProc(upfile[i], serviceImgDTO,downPath,dbPath);
+			siDTO[i] = uploadProc(upfile[i], serviceImgDTO,downPath);
 		}
 		return siDTO;
 	}

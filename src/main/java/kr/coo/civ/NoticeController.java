@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.google.gson.Gson;
+
 import kr.coo.civ.mapper.NoticeDAO;
 import kr.coo.civ.service.ServiceService;
 import kr.coo.civ.vo.BranchVO;
@@ -168,14 +170,18 @@ public class NoticeController {
 			mv.setView(rv);
 			return mv;
 		}
+		Gson g = new Gson();
+		ServiceController.sendDate(g.toJson(svcDTO));
 		
-		int imgcnt = serviceImgDTO.getS_img().length;
 		serviceImgDTO.setU_no(svcDTO.getU_no());
 		
-		for(int i = 0 ; i < imgcnt; i++) {
-			serviceImgDTO = svcImg.uploadProc(serviceImgDTO.getS_img()[i], serviceImgDTO,context.getRealPath(context.getInitParameter("uploadPath")),context.getInitParameter("uploadPath"));
-			int upimg = noticeDAO.questionImg(serviceImgDTO);
-			System.out.println( (i+1) + "��° �̹��� ��� �Ϸ� ");
+		if(serviceImgDTO.getS_img().length != 1) {			
+			int imgcnt = serviceImgDTO.getS_img().length;
+			for(int i = 1 ; i < imgcnt; i++) {
+				serviceImgDTO = svcImg.uploadProc(serviceImgDTO.getS_img()[i], serviceImgDTO,context.getRealPath(context.getInitParameter("uploadPath")));
+				int upimg = noticeDAO.questionImg(serviceImgDTO);
+				System.out.println( (i+1) + "��° �̹��� ��� �Ϸ� ");
+			}
 		}
 		
 		rv.setUrl("../");

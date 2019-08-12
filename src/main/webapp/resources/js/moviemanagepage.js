@@ -25,7 +25,7 @@ function getNextList() {
 											+ '"><i class="fas fa-film" style="color:red; margin-right:10px;"></i>(종료)</h4>');
 						}
 						appendDiv
-								.append('<div class="movie_poster"><div class="movie_realImg"><img class="image" src="'
+								.append('<div class="movie_poster"><div class="movie_realImg"><img class="image" src="/civ/resources/upload/'
 										+ data[i].moviePoster
 										+ '"></div><div class="middle">'
 										+ data[i].movieName + '</div></div>');

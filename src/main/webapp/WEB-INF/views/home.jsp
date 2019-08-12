@@ -27,7 +27,7 @@
 <!-- Demo styles -->
 <style>
 body {
-	background-image: url('/civ/resources/img/space.jpg');
+	background-image: url('${initParam['viewImagePath']}space.jpg');
 	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	color: #000;
@@ -261,7 +261,7 @@ a {
 					<div class="swiper-slide">
 						<div class="product-grid">
 							<div class="product-image">
-								<a href=""> <img class="pic-1" src="${f.moviePoster}"
+								<a href=""> <img class="pic-1" src="${initParam['viewUploadPath']}${f.moviePoster}"
 									style="z-index: 0">
 								</a>
 								<ul class="social">

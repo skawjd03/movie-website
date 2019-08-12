@@ -161,7 +161,7 @@ public class MoviePaymentController {
 	// 포인트 사용 검증
 	@GetMapping("/checkpoint")
 	@ResponseBody
-	public int checkPoint(int point, String m_id,HttpSession session) {
+	public HashMap<String,Object> checkPoint(int point, String m_id,HttpSession session) {
 		int userNo = ((MemberVO)session.getAttribute("loginInfo")).getUserNo();
 		PaymentInfo pInfo = (PaymentInfo)session.getAttribute("pInfo");
 		int paymoney = pInfo.getMoney();
@@ -181,10 +181,14 @@ public class MoviePaymentController {
 				discountMoney =  paymoney>=point? point:paymoney;
 			}
 		}
-		
-		new PaymentCheck().setHackCheck(resultMoney+"", m_id, new PaymentCheck().getImportToken());
+		String newM_id = "merchant_"+ new Date().getTime();
+		pInfo.setPayNo(newM_id);
+		new PaymentCheck().setHackCheck(resultMoney+"",newM_id, new PaymentCheck().getImportToken());
 		pInfo.setDiscountMoney(discountMoney);
-		return discountMoney;
+		HashMap<String,Object> result = new HashMap<String,Object>();
+		result.put("discountMoney", discountMoney);
+		result.put("mId", newM_id);
+		return result;
 	}
 	
 	// 결제 취소 ( 환불 )

@@ -30,7 +30,6 @@ public class SNSValue implements NaverUrls{
 			this.api20Instance = NaverAPI.getInstance();
 			this.profileUrl = NAVER_PROFILE_URL;
 		}
-		
 	}
 
 }

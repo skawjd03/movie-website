@@ -5,11 +5,14 @@
 			
 <mapper namespace="svSQL">
 	<insert id="quetionRegistor" parameterType="ServiceDTO">
+		<selectKey keyProperty="s_no,s_dateStr" order="BEFORE" resultType="ServiceDTO">
+			select PACCH_SERVICE_SEQ.nextval as s_no,to_char(sysdate,'yyyy/MM/dd HH24:mi') as s_dateStr from dual
+		</selectKey>
 		insert into
     		pacch_service
 		values(
-    		(SELECT max(service_no) +1 from pacch_service),
-    		#{u_no}, sysdate, #{s_title}, #{s_content}, #{s_kindof}, 'N','Y'
+    		#{s_no},
+    		#{u_no}, to_date(#{s_dateStr},'yyyy/MM/dd HH24:mi'), #{s_title}, #{s_content}, #{s_kindof}, 'N','Y'
     	)
 	</insert> 
 	

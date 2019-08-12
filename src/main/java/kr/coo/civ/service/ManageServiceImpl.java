@@ -3,6 +3,7 @@ package kr.coo.civ.service;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.coo.civ.mapper.ManageMapper;
+import kr.coo.civ.util.FileUtil;
 import kr.coo.civ.util.StringDateHelper;
 import kr.coo.civ.vo.MemberVO;
 import kr.coo.civ.vo.MovieVO;
@@ -31,6 +33,9 @@ public class ManageServiceImpl implements ManageService {
 
 	@Setter(onMethod_ = @Autowired)
 	private ManageMapper mapper;
+
+	private String[] imgCheck = { ".JPG", ".jpg",".PNG",".png" };
+	private String[] videoCheck = { ".MP4",".mp4" };
 
 	public ScheduleWithMovieVO getSWMV(String start, String finish, int screen) {
 		ScheduleWithMovieVO swmv = new ScheduleWithMovieVO();
@@ -148,65 +153,95 @@ public class ManageServiceImpl implements ManageService {
 
 	@Override
 	public int uploadMovie(MultipartFile[] imageFiles, MultipartFile[] videoFiles, MultipartFile wideposter,
-			MultipartFile poster, MovieVO mvo, String downPath, String dbPath) {
+			MultipartFile poster, MovieVO mvo, String downPath) {
+		Arrays.sort(imgCheck);
+		Arrays.sort(videoCheck);
 		int result = 1;
 
 		// 와이드랑 포스터 두개 저장하고 저장한 파일이름으로 db에 올린다. vo 랑 같이
-		String posterName = poster.getOriginalFilename().split("\\.")[0] + new Date().getTime() + '.'
-				+ poster.getOriginalFilename().split("\\.")[1];
+		String posterName = poster.getOriginalFilename();
+		int strIndex = posterName.lastIndexOf(".");
+		String ext = posterName.substring(strIndex);
+		if (Arrays.binarySearch(imgCheck, ext) <= 0)
+			return -1;
+
+		posterName = FileUtil.rename(downPath, posterName);
 		File savePoster = new File(downPath, posterName);
 
-		String wideposterName = wideposter.getOriginalFilename().split("\\.")[0] + new Date().getTime() + '.'
-				+ wideposter.getOriginalFilename().split("\\.")[1];
-		File widesavePoster = new File(downPath, wideposterName);
+		String wideposterName = "";
+		File widesavePoster = null;
+		if(wideposter != null) {
+			wideposterName = wideposter.getOriginalFilename();
+			strIndex = wideposterName.lastIndexOf(".");
+			ext = wideposterName.substring(strIndex);
+			if (Arrays.binarySearch(imgCheck, ext) <= 0) return -1;
+			wideposterName = FileUtil.rename(downPath, wideposterName);
+			widesavePoster = new File(downPath, wideposterName);
+		}
+		
 
 		mvo.setMoviePoster(posterName);
 		mvo.setMovieWideposter(wideposterName);
-		
+
 		if (mapper.insertMovie(mvo) <= 0) {
-			result = -1;
+			return -1;
 		}
 
-		String[] imageNames = new String[imageFiles.length];
+		String stilcutName = "";
 		File[] images = new File[imageFiles.length];
 		for (int i = 0; i < imageFiles.length; i++) {
-			imageNames[i] = imageFiles[i].getOriginalFilename().split("\\.")[0] + new Date().getTime() + '.'
-					+ imageFiles[i].getOriginalFilename().split("\\.")[1];
-			images[i] = new File(downPath, imageNames[i]);
-			if (mapper.insertMovieImg(mvo.getMovieCode(), imageNames[i]) <= 0) {
-				result = -1;
-			}
-		}
+			stilcutName = imageFiles[i].getOriginalFilename();
+			strIndex = stilcutName.lastIndexOf(".");
+			ext = stilcutName.substring(strIndex);
+			stilcutName = FileUtil.rename(downPath, stilcutName);
 
-		String[] videoNames = new String[imageFiles.length];
+			if(Arrays.binarySearch(imgCheck, ext) <= 0) {
+				System.out.println(ext);
+				System.out.println(Arrays.binarySearch(imgCheck, ext) +"불통");
+				return -1;
+			}
+			if (  mapper.insertMovieImg(mvo.getMovieCode(), stilcutName) <= 0) return -1;
+			
+			images[i] = new File(downPath, stilcutName);
+		}
+		String videoName = "";
 		File[] videos = new File[videoFiles.length];
-		for (int i = 0; i < videoFiles.length; i++) {
-			videoNames[i] = videoFiles[i].getOriginalFilename().split("\\.")[0] + new Date().getTime() + '.'
-					+ videoFiles[i].getOriginalFilename().split("\\.")[1];
-			videos[i] = new File(downPath, videoNames[i]);
-			if (mapper.insertMovieVideo(mvo.getMovieCode(), videoNames[i]) <= 0) {
-				result = -1;
+		if(videoFiles != null) {
+			for (int i = 0; i < videoFiles.length; i++) {
+				videoName = videoFiles[i].getOriginalFilename();
+				strIndex = videoName.lastIndexOf(".");
+				ext = videoName.substring(strIndex);
+	
+				videoName = FileUtil.rename(downPath, videoName);
+				
+				if(Arrays.binarySearch(videoCheck, ext) <= 0) return -1;
+				if (mapper.insertMovieVideo(mvo.getMovieCode(), videoName) <= 0) return -1;
+				
+				videos[i] = new File(downPath, videoName);
 			}
 		}
 
-		if (result == 1) {
-			try {
-				poster.transferTo(savePoster);
-				wideposter.transferTo(widesavePoster);
-				for (int i = 0; i < imageFiles.length; i++) {
-					imageFiles[i].transferTo(images[i]);
-				}
+		try {
+			
+			poster.transferTo(savePoster);
+			if(wideposter != null) {
+				wideposter.transferTo(widesavePoster);				
+			}
+			
+			for (int i = 0; i < imageFiles.length; i++) {
+				imageFiles[i].transferTo(images[i]);
+			}
+			if(videoFiles != null) {
 				for (int i = 0; i < videoFiles.length; i++) {
 					videoFiles[i].transferTo(videos[i]);
-				}
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+				}				
 			}
+			return 1;
+		} catch (IllegalStateException e) {
+			return -1;
+		} catch (IOException e) {
+			return -1;
 		}
-
-		return result;
 	}
 
 	@Override
@@ -285,25 +320,33 @@ public class ManageServiceImpl implements ManageService {
 		int result = mapper.insertMember(mvo, isshow);
 		return mapper.selectMemberManageList();
 	}
-	
+
 	@Override
-	public int uploadBillboard(MultipartFile billboardimg, String link, String finishDate,String path) {
-		String posterName = billboardimg.getOriginalFilename().split("\\.")[0]+new Date().getTime()+'.'+billboardimg.getOriginalFilename().split("\\.")[1];
-		File saveBillboard = new File(path,posterName);
+	public int uploadBillboard(MultipartFile billboardimg, String link, String finishDate, String downPath) {
+		Arrays.sort(imgCheck);
+		Arrays.sort(videoCheck);
+		String billboardName = billboardimg.getOriginalFilename();
+		int strIndex = billboardName.lastIndexOf(".");
+		String ext = billboardName.substring(strIndex);
+		if(Arrays.binarySearch(imgCheck, ext) <= 0) {
+			return -1;
+		}
 		
-		int result = mapper.insertBillboard(posterName, link, finishDate);
+
+		int result = mapper.insertBillboard(billboardName, link, finishDate);
+		File saveBillboard = new File(downPath, billboardName);
 		
-		if(result > 0) {
+		if (result > 0) {
 			try {
 				billboardimg.transferTo(saveBillboard);
 			} catch (IllegalStateException | IOException e) {
-				return 0;
+				return -1;
 			}
 			return 1;
-		}else {			
-			return 0;
+		} else {
+			return -1;
 		}
-		
+
 	}
 
 }

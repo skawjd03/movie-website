@@ -151,7 +151,7 @@ td {
 
 	<div class="membershipContainer">
 		<div style="height: 300px;">
-			<img src="/civ/resources/img/bgtop.png" style="width: 100%; height: 100%;">
+			<img src="${initParam['viewImagePath']}bgtop.png" style="width: 100%; height: 100%;">
 			<div class="membershiph1box">
 				<h1 class="membershiph1">
 					<strong>멤버십</strong><br>
@@ -185,15 +185,15 @@ td {
 			<div class="sectionBox">
 				<h3 class="sectionHeader">회원혜택</h3>
 				<div class="BenefitImgBox">
-					<img src="/civ/resources/img/benefit.png" style="width: 100%; height: 100%;">
+					<img src="${initParam['viewImagePath']}benefit.png" style="width: 100%; height: 100%;">
 				</div>
 			</div>
 			<div id="membershipCard" class="sectionBox">
 				<h3 class="sectionHeader">멤버십카드</h3>
 				<div class="cardImgBox">
-					<img src="/civ/resources/img/card.png" style="margin: 0 4px;"> <img
-						src="/civ/resources/img/card_vip.png" style="margin: 0 4px;"> <img
-						src="/civ/resources/img/card_vvip.png" style="margin: 0 4px;">
+					<img src="${initParam['viewImagePath']}card.png" style="margin: 0 4px;"> <img
+						src="${initParam['viewImagePath']}card_vip.png" style="margin: 0 4px;"> <img
+						src="${initParam['viewImagePath']}card_vvip.png" style="margin: 0 4px;">
 				</div>
 				<h4 class="helph4">영화관 멤버십 카드</h4>
 				<div class="ummBox">

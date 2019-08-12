@@ -48,8 +48,7 @@
 							<div class="reserve_moviescrollList1" id="sc1" style="width:350px;">
 								<c:forEach var="list" items="${mList}">
 									<a onclick="movieChoice(${list.movieCode});" style="width:100%;">
-										<div class="all reserve_movie" name="movie_${list.movieCode}"
-											style="padding: 5px; width:">
+										<div class="all reserve_movie" name="movie_${list.movieCode}" style="padding: 5px; width:">
 											<c:choose>
 												<c:when test="${list.movieAge == '12세이상관람가'}">
 													<p class="ptags"
@@ -108,10 +107,11 @@
 	<script src="/civ/resources/js/movieListShow.js"></script>
 	<script>
 	
-		var mCode = "${mCode}";
-		if(mCode != ''){
+		var mCode = '${mCode}';
+		if(mCode !=''){
 			movieChoice(mCode);
 		}
+		
 		function seatPage(){
 			if($('#selectedScheduleCode').val()==''){
 				alert('영화를 선택하세요 ');

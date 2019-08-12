@@ -73,12 +73,11 @@ body {
 				<a href="/civ/auth/logout" class="w3-btn lineBtn">LOGOUT</a>
 				<a href="/civ/member/myinfo"><button class="w3-btn lineBtn">MYPAGE</button></a>
 			</c:if>
-			<button class="w3-btn lineBtn" style="margin-right: 15px;">SERVICE</button>
+			<a href="/civ/Notice/noticeForm.s5"><button class="w3-btn lineBtn" style="margin-right: 15px;">SERVICE</button></a>
 		</div>
-		<a href="/civ/main" style="text-decoration: none;"><h1
-				class="LOGO">ISLOGGO</h1></a>
+		<a href="/civ/main" style="text-decoration: none;"><h1 class="LOGO">ISLOGGO</h1></a>
 		<div class="linkList">
-			<button class="w3-btn linkBtn">MOVIE</button>
+			<a href="/civ/movie/moviepage"> <button class="w3-btn linkBtn">MOVIE</button></a>
 			<a href="/civ/theater"><button class="w3-btn linkBtn">THEATER</button></a>
 			<a href="/civ/payment/reserve" class="w3-btn linkBtn">RESERVE</a>
 			<a href="/civ/member/membership"><button class="w3-btn linkBtn">MEMBERSHIP</button></a>

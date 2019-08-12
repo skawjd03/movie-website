@@ -98,7 +98,6 @@ public class MemberController {
 	@GetMapping("/createmembership")
 	public String createMembershipCard(HttpSession session) {
 		MemberShipVO membership = new MemberShipVO();
-		;
 		int userNo = (int) ((MemberVO) session.getAttribute("loginInfo")).getUserNo();
 		membership.setUserNo(userNo);
 		membership.setCardNo(CreateCardNumber.makeCardNum(userNo));
@@ -152,7 +151,7 @@ public class MemberController {
 	public String changeProfile(MultipartFile proFile, HttpSession session) {
 		MemberVO userVo = (MemberVO) session.getAttribute("loginInfo");
 		if (userVo != null) {
-			if (service.changeProfile(proFile, context.getRealPath("\\resources\\profile"), userVo.getUserNo(),userVo) == 1) {
+			if (service.changeProfile(proFile, context.getRealPath(context.getInitParameter("profilePath")), userVo.getUserNo(),userVo) == 1) {
 				return "redirect:/member/myinfo";
 			}
 		}

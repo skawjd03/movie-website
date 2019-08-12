@@ -45,7 +45,6 @@ public class MovieController {
 	// 영화 상세보기 페이지 ( 모달창 )
 	@GetMapping("/moviedetail")
 	public void movieDetailPage(String movieCode,Model model,HttpSession session,HttpServletRequest request) {
-		System.err.println("moviedetailPage 호출");
 		MemberVO userVo = (MemberVO)session.getAttribute("loginInfo");
 		MovieDetailDTO mddto = null;
 		int ss = 0;
@@ -64,7 +63,6 @@ public class MovieController {
 	// 영화 상세보기 페이지 ( 일반 페이지 )
 	@GetMapping("/moviedetailpage2")
 	public void movieDetailPage2(String movieCode,Model model,HttpSession session,HttpServletRequest request) {
-		System.err.println("moviedetailPage 호출");
 		MemberVO userVo = (MemberVO)session.getAttribute("loginInfo");
 		MovieDetailDTO mddto = null;
 		int ss = 0;
@@ -86,7 +84,6 @@ public class MovieController {
 	@GetMapping("/pagechange")
 	@ResponseBody
 	public MovieDetailDTO pageChange(String movieCode,Criteria cri,HttpSession session,HttpServletRequest request) {
-		System.err.println("pageChange 호출" + cri.getPageNum() + cri.getOrder() + movieCode);
 		MemberVO userVo = (MemberVO)session.getAttribute("loginInfo");
 		MovieDetailDTO mddto = null;
 		if(userVo != null) {
@@ -95,7 +92,6 @@ public class MovieController {
 		}else {
 			ThumbsInfoDTO thumbs = new Encryption().getEncryption(request, new ThumbsInfoDTO());
 			mddto = service.getCommentDTO(cri, movieCode,thumbs.getMd5ip(),0);
-			System.out.println(mddto);
 		}
 		return mddto;
 	}

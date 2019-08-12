@@ -143,11 +143,11 @@
                             <input type="checkbox" name="idSave"> 아이디 저장 <a class="joinGo" href="/civ/auth/join">회원가입</a>
                         </div>
                         <input type="submit" id="loginBtn" value="로그인">
-                        <a href="${naver_login_url}"><img id="naverLoginBtn" src="/civ/resources/img/네이버로그인버튼.PNG"></a>
+                        <a href="${naver_login_url}"><img id="naverLoginBtn" src="${initParam['viewImagePath']}네이버로그인버튼.PNG"></a>
                     </form>
                 </div><!--
                 --><div class="w4" style="margin-top: 31.5px;">
-                    <img id="adImg" src="/civ/resources/img/광고.jpg">
+                    <img id="adImg" src="${initParam['viewImagePath']}광고.jpg">
                 </div>
 		</div>
 	</div>

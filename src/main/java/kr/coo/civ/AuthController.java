@@ -66,7 +66,6 @@ public class AuthController {
 	}
 	
 
-	
 	// ################# 기능 요청 #################
 	// 네이버 로그인 콜백 주소
 	@RequestMapping(value = "/{snsService}/callback", method = { RequestMethod.GET, RequestMethod.POST })
@@ -154,20 +153,18 @@ public class AuthController {
 	@PostMapping("/userjoin")
 	public String userJoin(MemberVO mvo, FavoriteMovieVO fvo, InflowRouteVO ivo, String[] strBirth, String routeText)
 			throws ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		mvo.setUserBirth(strBirth[0] + "-" + strBirth[1] + "-" + strBirth[2]);
+		mvo.setUserBirth(strBirth[0]+strBirth[1]+strBirth[2]);
 		if (ivo.getRoutePath().equals("기타")) {
 			ivo.setRoutePath(routeText);
 		}
 		mvo.setUserPhone(mvo.getUserPhone().replace("-", ""));
-		sdf = new SimpleDateFormat("yyyyMMdd");
 		if (mvo.getUserId().matches("^[a-zA-Z0-9_]{4,15}$")
 				& mvo.getUserPassword().matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$")
 				& mvo.getUserNick().matches("^[a-zA-Z가-힣0-9_]{3,15}$")
 				& mvo.getUserPhone().matches("^01(?:0|1|[6-9])(\\d{3}|\\d{4})(\\d{4})$")
-				& sdf.format(mvo.getUserBirth()).matches("^((19|20)\\d\\d)(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])$")) {
+				& mvo.getUserBirth().matches("^((19|20)\\d\\d)(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])$")) {
 			if (service.joinUser(mvo, fvo, ivo)) {
-
+				mvo.setUserBirth(strBirth[0] + "-" + strBirth[1] + "-" + strBirth[2]);
 				return "redirect:/auth/login";
 			} else {
 				return "redirect:/common/500";

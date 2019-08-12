@@ -91,25 +91,25 @@ function setList(data) {
 						},
 						success : function(data) {
 							$('#serviceWriter').html('작성자 : ' + data.userNo);
-							$('#serviceTitle')
-									.html('제목 : ' + data.serviceTitle);
+							$('#serviceTitle').html('제목 : ' + data.serviceTitle);
 							$('#serviceContent').val(data.serviceContent);
-							if (data.imgPath.length != 0) {
+								$('#imgBox1').attr('src','');
+								$('#imgBox2').attr('src','');
+								$('#imgBox3').attr('src','');
 								for (var i = 0; i < data.imgPath.length; i++) {
-									$('#imgBox' + (i + 1)).attr('src',
-											data.imgPath[i].serviceimgPath);
-									$('#imgBox' + (i + 1)).click(
-											function(e) {
-												$('#wideImg').attr('src',
-														$(this).attr('src'));
-											});
+										$('#imgBox' + (i + 1)).attr('src','/civ/resources/upload/'+data.imgPath[i].serviceimgPath);
+										$('#imgBox' + (i + 1)).click(
+												function(e) {
+													$('#wideImg').attr('src',
+															$(this).attr('src'));
+												});
 								}
 							}
-						}
 					});
 				});
 	}
 }
+
 var selectedScCode = null;
 function uploadAnswer() {
 	if (selectedScCode == null) {
@@ -126,7 +126,7 @@ function uploadAnswer() {
 		url : "/civ/admin/upservicecomment.json",
 		data : {
 			'serviceNo' : selectedScCode,
-			'serviceComment' : $('#answerContent').val()
+			'commentContent' : $('#answerContent').val()
 		},
 		success : function(data) {
 			if (data == 1) {

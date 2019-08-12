@@ -361,7 +361,7 @@ a {
 					<c:forEach var="slide" items="${slideList}">
 						<div class="swiper-slide">
 							<a class="imgLink" href="${slide.billboardLink }"> <img
-								class="slideImg" src="${slide.billboardImg}" controls="controls"></a>
+								class="slideImg" src="${initParam['viewUploadPath']}${slide.billboardImg}" controls="controls"></a>
 						</div>
 					</c:forEach>
 				</div>
@@ -388,17 +388,17 @@ a {
 				<div>
 					<div class="product-grid">
 						<div class="product-image">
-							<a href="#"> <img class="pic-1" src="${initParam['uploadPath']}${poster.moviePoster }"
+							<a href="#"> <img class="pic-1" src="${initParam['viewUploadPath']}${poster.moviePoster }"
 								style="z-index: 0">
 							</a>
 							<ul class="social">
 								<li><a
 									href="/civ/movie/moviedetailpage2?movieCode=${poster.movieCode}"
-									data-tip="상세보기"><img src="/civ${initParam['imagePath']}searcj.png"
+									data-tip="상세보기"><img src="${initParam['viewImagePath']}searcj.png"
 										style="height: 100%; width: 100%"></a></li>
 								<li><a
 									href="/civ/payment/reserve?movieCode=${poster.movieCode}"
-									data-tip="예매하기"><img src="/civ${initParam['imagePath']}ticket.png"
+									data-tip="예매하기"><img src="${initParam['viewImagePath']}ticket.png"
 										style="height: 100%; width: 100%"></a></li>
 							</ul>
 						</div>
